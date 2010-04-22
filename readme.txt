@@ -35,7 +35,7 @@ Summary of WPGMappity functionality – the numbers in red in the image above li
 1. Alignment: Just like adding an image to your post you can have the map float left or right, be centered, or have no alignment specified.
 1. Insert Map: When you have your map just how you like it hit “Insert Map.”  This will save off you map info to the database and insert a Wordpress “shortcode” into your post.  Wherever that shortcode is, the map will be displayed when you view your post.
 
-
+Project Home: [http://www.wordpresspluginfu.com/wpgmappity/](http://www.wordpresspluginfu.com/wpgmappity/)
 == Installation ==
 
 Installing WPGMappity is quick and simple: upload the plug-in, enter a Google Maps API key, and you are good to go.

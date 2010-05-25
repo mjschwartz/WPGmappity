@@ -19,17 +19,21 @@ function wpgmappity_shortcode_handle($attr) {
 
   $map = wgmappity_get_meta_data($attr['id']); 
   $map = $map[0];
-  //die(var_dump($map));
   $content = wpgmappity_shortcode_container_div($map);
   $content .=  wpgmappity_shortcode_mapjs($map); 
   return $content;
 }
 
 function wpgmappity_shortcode_container_div($map) {
-  $content = '<div id="wpgmappity-map-'.$map['id'].'"';
+  $content = '<div class="wpgmappity_container" id="wpgmappity-map-'.$map['id'].'"';
   $content .= ' style="width:'.$map['map_length'].'px;';
   $content .= 'height:'.$map['map_height'].'px;';
-  $content .= 'float:'.$map['alignment'].';">';
+  if ( ($map['alignment'] == 'right') || ($map['alignment'] == 'left') ) {
+    $content .= 'float:'.$map['alignment'].';">';
+  }
+  elseif ($map['alignment'] == 'center') {
+    $content .= 'margin-left:auto;margin-right:auto;">';
+  }
   $content .= '</div>';
   return $content;
 }
@@ -45,11 +49,19 @@ function wpgmappity_shortcode_mapjs($map) {
   $content .= 'wpgmappitymap'.$map['id'].'.setCenter(new google.maps.LatLng(';
   $content .= $map['center_lat'].', '.$map['center_long'].'), '.$map['map_zoom'].');'."\n";
   $content .= wpgmappity_shortcode_maptype($map);
+  if ( ($map['map_controls'] == 'small') || ($map['map_controls'] == 'large') ) {
+    $content .= wpgmappity_shortcode_controls($map);
+  }
   if (wpgmappity_has_markers($map['id']) != '0') {  
     $content .= wpgmappity_shortcode_markers_js($map['id']);
   }
-  $content .= '};'."\n";
+  $content .= '}'."\n";
+  $content .= 'if (typeof(google.maps) == undefined) {'."\n";
   $content .= 'google.load("maps", "2", {"callback" : wpgmapptiy_maps_loaded'.$map['id'].'});';
+  $content .= '}'."\n";
+  $content .= 'else {'."\n";
+  $content .= 'wpgmapptiy_maps_loaded'.$map['id'].'();'."\n";
+  $content .= '}'."\n";
   $content .= '</script>';
 
   return $content;
@@ -104,6 +116,18 @@ function wpgmappity_shortcode_maptype($map) {
   }
   return "wpgmappitymap".$map['id'].".setMapType(".$type.");\n";
 
+}
+
+function wpgmappity_shortcode_controls($map) {
+  switch ($map['map_controls']) {
+  case 'large' :
+  $content .= 'wpgmappitymap'.$map['id'].'.addControl(new GLargeMapControl3D());'."\n";
+  break;
+  case 'small' :
+  $content .= 'wpgmappitymap'.$map['id'].'.addControl(new GSmallMapControl());'."\n";
+  break;
+  }
+  return $content;
 }
 
 ?>

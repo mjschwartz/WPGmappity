@@ -1,6 +1,7 @@
 <?php 
 function wpgmappity_iframe() {
   $post_id = esc_attr($_REQUEST['post_id']);
+  $map_id =  esc_attr($_REQUEST['map_id']);
   $wgmappity_style_sheet = wpgmappity_plugin_url( 'styles/wpgmappity-iframe.css' );
 
 ?>
@@ -41,6 +42,69 @@ do_action('admin_head');
 <link media="all" type="text/css" rel="stylesheet" href="<?php echo $wgmappity_style_sheet ?>">
 </head>
 <body<?php if ( isset($GLOBALS['body_id']) ) echo ' id="' . $GLOBALS['body_id'] . '"'; ?>>
+
+<?php if ($_GET['modify'] == 'select') { 
+
+  if ($_GET['map-action'] == 'delete') {
+    wpgmappity_delete_map_item($_GET['map_id']);
+  }
+
+?>
+<div id="media-upload-header">
+<ul id="sidemenu">
+<li><a href="media-upload.php?post_id=59&amp;type=gmappity&amp;TB_iframe=true&amp;width=640&amp;height=360">Build a Map</a></li>
+<li><a class="current" href="media-upload.php?post_id=59&amp;type=gmappity&amp;modify=select&amp;TB_iframe=true&amp;width=640&amp;height=360">Map Library</a></li>
+</ul>
+</div>
+
+<div id="map_items">
+
+<p>Below are the maps currently stored in your blog's database.</p>
+
+
+
+<?php 
+
+  $map_list = wpgmappity_fetch_all_maps();
+  $content = '';
+  $map_upload_iframe_src = "media-upload.php?post_id=$post_id&amp;type=gmappity&amp;TB_iframe=true";
+  foreach ($map_list as $map) {
+
+    $content .= '<div class="map-list-item">';
+    $content .= '<a class="wpgmappity_map_delete" href="';
+    $content .= $map_upload_iframe_src.'&amp;modify=select';
+    $content .= '&amp;map_id='.$map['id'].'&amp;map-action=delete';
+    $content .= '" onclick="return confirm(\'Are you sure you want to permenantly delete this map?\');">Delete</a>';
+    $content .= '<a class="wpgmappity_map_edit" href="';
+    $content .= $map_upload_iframe_src.'&amp;modify=edit';
+    $content .= '&amp;map_id='.$map['id'];
+    $content .= '">Edit / Insert</a>';
+    $content .= '<div class="filename">'.$map['id'].') ';
+    if ($map['map_address'] == '') {
+      $content .= $map['center_lat'].', '.$map['center_long'];
+    }
+    else {
+      $content .= $map['map_address'];
+    }
+    $content .= '</div>';
+    $content .= '</div>';
+  }
+
+  echo $content;
+?>
+
+</div>
+
+<?php }
+
+else { ?>
+
+<div id="media-upload-header">
+<ul id="sidemenu">
+<li><a class="current" href="media-upload.php?post_id=59&amp;type=gmappity&amp;TB_iframe=true&amp;width=640&amp;height=360">Build a Map</a></li>
+<li><a href="media-upload.php?post_id=59&amp;type=gmappity&amp;modify=select&amp;TB_iframe=true&amp;width=640&amp;height=360">Map Library</a></li>
+</ul>
+</div>
 
 <form id="wpgmappity-create" action="media-upload.php?type=wpgmappity&amp;tab=type&amp;post_id=<?php echo $post_id ?>" method="post" autocomplete="off">
 <br>
@@ -209,6 +273,31 @@ do_action('admin_head');
       </div>
     </td>
   </tr>
+
+  <!-- controls -->
+  <tr class="wpgmappity-iframe-dimension">
+    <th valign="top" class="label" scope="row">
+      <label for="wpgamppity_controls">
+        <span class="wpgmappity_selector_size">
+          Map Controls
+        </span>
+      </label>
+    </th>
+    <td class="wpgmappity_sample_choice">
+      <div class="wpgmappity_type_choice">
+        <input type="radio" value="none" id="wpgmappity_controls_none" name="wpgmappity_controls" checked="checked" />
+        <label for="wpgmappity_controls_none">None</label>
+      </div>
+      <div class="wpgmappity_type_choice">
+        <input type="radio" value="small" id="wpgmappity_controls_small" name="wpgmappity_controls" />
+        <label for="wpgmappity_controls_small">Small Controls</label>
+      </div>
+      <div class="wpgmappity_type_choice">
+        <input type="radio" value="large" id="wpgmappity_controls_large" name="wpgmappity_controls" />
+        <label for="wpgmappity_controls_large">Large Controls</label>
+      </div>  
+    </td>
+  </tr>
   
   <!-- type -->
   <tr class="wpgmappity-iframe-dimension">
@@ -238,7 +327,7 @@ do_action('admin_head');
   <!-- float -->
   <tr class="wpgmappity-iframe-dimension">
     <th valign="top" class="label" scope="row">
-      <label for="wpgamppity_float">
+      <label for="wpgmappity_float">
         <span class="wpgmappity_selector_size">
           Alignment
         </span>
@@ -246,34 +335,103 @@ do_action('admin_head');
     </th>
     <td class="wpgmappity_sample_choice">
       <div class="wpgmappity_size_choice">
-        <input type="radio" value="none" id="wpgamppity_float_none" name="wpgamppity_float" checked="checked" />
-        <label for="wpgamppity_float_none">None</label>
+        <input type="radio" value="none" id="wpgmappity_float_none" name="wpgmappity_float" checked="checked" />
+        <label for="wpgmappity_float_none">None</label>
       </div>
       <div class="wpgmappity_size_choice">
-        <input type="radio" value="left" id="wpgamppity_float_left" name="wpgamppity_float" />
-        <label for="wpgamppity_float_left">Left</label>
+        <input type="radio" value="left" id="wpgmappity_float_left" name="wpgmappity_float" />
+        <label for="wpgmappity_float_left">Left</label>
       </div>
       <div class="wpgmappity_size_choice">
-        <input type="radio" value="center" id="wpgamppity_float_center" name="wpgamppity_float" />
-        <label for="wpgamppity_float_center">Center</label>
+        <input type="radio" value="center" id="wpgmappity_float_center" name="wpgmappity_float" />
+        <label for="wpgmappity_float_center">Center</label>
       </div>  
       <div class="wpgmappity_size_choice">
-        <input type="radio" value="right" id="wpgamppity_float_right" name="wpgamppity_float" />
-        <label for="wpgamppity_float_right">Right</label>
+        <input type="radio" value="right" id="wpgmappity_float_right" name="wpgmappity_float" />
+        <label for="wpgmappity_float_right">Right</label>
       </div>
     </td>
   </tr>
-  
+
+ 
 </table>
+
+<?php if ($_GET['modify'] == 'edit') { ?>
+<p style="text-align:center;"><strong> You are editing an existing map.</strong></p>
+<p>Use the controls above to customize your map.  When complete click "Edit / Insert Map".  A new shortcode of the form [wpgmappity id="1"] will be inserted in your post.  When your post is displayed this shortcode will be converted into the Google Map that you built.</p>
+<input type="hidden" name="wpgmappity-edit-map" value="true"/>
+<input type="hidden" name="wpgmappity-map-id" value="<?php echo $map_id ?>"/>
+<div class="wpgmappity_submit">
+<input type="submit" id="submit" name="submit" value="Edit / Insert Map"/>
+</div>
+<?php }
+else { ?>
+
 <p>Use the controls above to customize your map.  When complete click "Insert Map".  A shortcode of the form [wpgmappity id="1"] will be inserted in your post.  When your post is displayed this shortcode will be converted into the Google Map that you built.</p>
 <div class="wpgmappity_submit">
 <input type="submit" id="submit" name="submit" value="Insert Map"/>
 </div>
-<input type="hidden" name="wpgmappity-map-id" value="<?php echo $map_number ?>"/>
+
+
+<?php } ?>
+
+<p>Need help? <a href="http://www.wordpresspluginfu.com/wpgmappity/using-wpgmappity/" target="_blank">WP GMappity usage help</a></p>
+<p>If you find WP GMappity useful, please take a second to <a href="http://wordpress.org/extend/plugins/wp-gmappity-easy-google-maps/" target="_blank">rate it on the Wordpress.org site</a>.</p>
 <textarea id="wpgmappity-submit-info" name="wpgmappity-submit-info" style="display:none;"></textarea>
 
 </form>
+
+<?php
+
+if ($_GET['modify'] == 'edit') {
+  $map_to_edit = wgmappity_get_meta_data($map_id);
+  $map_to_edit = $map_to_edit[0];
+?>
+<script type="text/javascript">
+
+function wpgmappity_import_saved_map() {
+  return {
+    'map_length' : <?php echo $map_to_edit['map_length']; ?>,
+    'map_height' : <?php echo $map_to_edit['map_height']; ?>,
+    'map_zoom' : <?php echo $map_to_edit['map_zoom']; ?>,
+    'center_lat' : '<?php echo $map_to_edit['center_lat']; ?>',
+    'center_long' : '<?php echo $map_to_edit['center_long']; ?>',
+    'center_lat' : '<?php echo $map_to_edit['center_lat']; ?>',
+    'map_type' : '<?php echo $map_to_edit['map_type']; ?>',
+    'alignment' : '<?php echo $map_to_edit['alignment']; ?>',
+    'controls' : '<?php echo $map_to_edit['map_controls']; ?>',
+    'map_address' : '<?php echo $map_to_edit['map_address']; ?>'
+  }
+}
+</script>
+<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-import.js' ) ?>"></script>
+<?php }
+$markers = wpgmappity_fetch_markers_for_map($map_id);
+if ( ($_GET['modify'] == 'edit') && (isset($markers)) ) {
+
+?>
+<script type="text/javascript">
+
+var wpgmappity_marker_flag = true;
+
+function wpgmappity_import_markers() {
+  return [
+  <?php echo wpgmappity_marker_json($markers); ?>
+  ]
+}
+</script>
+<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-import-markers.js' ) ?>"></script>
+  <?php }
+else {
+ ?>
+<script type="text/javascript">
+var wpgmappity_marker_flag = false;
+</script>
+<?php } ?>
+
 <script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe.js' ) ?>"></script>
+
+<?php } ?>
 
 <?php
 do_action('admin_print_footer_scripts');
@@ -290,4 +448,41 @@ function gmappity_shortcode_to_editor($html) {
   
   return media_send_to_editor($html);
 }
+
+function wpgmappity_fetch_all_maps() {
+  global $wpdb;
+  $table = $wpdb->prefix . "wpgmappity_maps";
+  return $wpdb->get_results("SELECT * FROM $table WHERE active = '1'", ARRAY_A);
+}
+
+function wpgmappity_fetch_markers_for_map($map_id) {
+  global $wpdb;
+  $table = $wpdb->prefix . "wpgmappity_markers";
+  return $wpdb->get_results("SELECT * FROM $table WHERE map_id = $map_id", ARRAY_A);
+}
+
+function wpgmappity_marker_json($markers) { 
+  $content = '';
+  foreach ($markers as $key => $marker) {
+    $content .= wpgmappity_marker_json_object($marker);
+    if (isset($markers[$key + 1])) {
+      $content .= ",\n";
+    }
+    else {
+      $content .= "\n";
+    }
+  }
+  return $content;
+}
+
+function wpgmappity_marker_json_object($marker) {
+  $content = "{
+  'marker_lat' : '".$marker['marker_lat']."',
+  'marker_long' : '".$marker['marker_long']."',
+  'marker_text' : '".$marker['marker_text']."',
+  'marker_url' : '".$marker['marker_url']."'
+  }";
+  return $content;
+}
+
 ?>

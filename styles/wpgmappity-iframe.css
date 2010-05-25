@@ -176,3 +176,29 @@ div.wpgmappity_submit {
 	margin: 5px auto;
 }
 
+/* map library */
+
+div#map_items { 
+border-bottom:medium none;
+border-style:solid solid none;
+border-width:1px 1px medium;
+border-color: #DFDFDF;
+width:623px;
+margin: 1.0em;
+}
+
+div#map_items div.map-list-item { 
+border-bottom-style:solid;
+border-bottom-width:1px;
+border-color: #DFDFDF;
+min-height:36px;
+width:100%;
+ }
+
+div#map_items div.map-list-item a.wpgmappity_map_delete,
+div#map_items div.map-list-item a.wpgmappity_map_edit { 
+display:block;
+float:right;
+line-height:36px;
+margin-right:20px;
+ }

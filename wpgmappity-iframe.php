@@ -44,7 +44,6 @@ do_action('admin_head');
 <body<?php if ( isset($GLOBALS['body_id']) ) echo ' id="' . $GLOBALS['body_id'] . '"'; ?>>
 
 <?php if ($_GET['modify'] == 'select') { 
-
   if ($_GET['map-action'] == 'delete') {
     wpgmappity_delete_map_item($_GET['map_id']);
   }
@@ -238,12 +237,17 @@ else { ?>
         <h3><a href="#add_a_marker" id="wpgamppity_add_marker_go">Add a Marker</a></h3>
       </div>
       <div id="wpgmappity_add_marker_dialog" style="display:none;">
-        <p>Enter the address below of the point that you would like marked.</p>
+        <p>Enter a point that you would like marked.  You may specify the point with an address OR with a latitude / longitude pair.</p>
         
         <div id="wpgmappity_marker_point_wrapper">
           <div id="wpgmappity_marker_flash"></div>
-          <input type="text" name="wpgmappity_marker_point" id="wpgmappity_marker_point" value="" size="45" maxlength="120" style="float:left;"/>
-          <button id="wpgmappity_marker_point_submit" class="button" style="float:right;">Mark Point</button>
+	  <p>By Address:<br/>
+          <input type="text" name="wpgmappity_marker_point" id="wpgmappity_marker_point" value="" size="35" maxlength="120"/></p>
+	  <p>By Latitude, Longitude:<br/>
+          <input type="text" name="wpgmappity_marker_point" id="wpgmappity_marker_point_latlng" value="" size="35" maxlength="120"/></p>
+          <p style="text-align:center;"">
+	    <button id="wpgmappity_marker_point_submit" class="button">Mark Point</button>
+	  </p>
          
           <br style="clear:both"/>
           <div id="wpgmappity_more_marker_results" style="display:none;">
@@ -261,10 +265,8 @@ else { ?>
       <div id="wgmappity_marker_configure_dialog" style="display:none;">
         <input type="hidden" name="wgmappity_marker_configure_id" id="wgmappity_marker_configure_id" value=""/>
         <div id="wgmappity_marker_configure_wrap">
-        <p>Display the following text when the marker is clicked:<br/>
-          <input type="text" name="wgmappity_marker_configure_text" id="wgmappity_marker_configure_text" value="" size="45" maxlength="120"/></p>
-        <p><input type="checkbox" value="Not Here" id="wgmappity_marker_configure_link" name="wgmappity_marker_configure_link"/> Check the box to link this text to the following URL:<br/>
-          <input type="text" name="wgmappity_marker_configure_url" id="wgmappity_marker_configure_url" value="" size="45" maxlength="120" /></p>
+        <p>Display the following text when the marker is clicked (contents can be HTML as Google Maps will allow):</p>
+	<textarea name="wgmappity_marker_configure_text" id="wgmappity_marker_configure_text" rows="5" cols="45"></textarea>
         <p>
           <button id="wgmappity_marker_configure_submit" class="button">Set Configuration</button>
 
@@ -388,7 +390,6 @@ if ($_GET['modify'] == 'edit') {
   $map_to_edit = $map_to_edit[0];
 ?>
 <script type="text/javascript">
-
 function wpgmappity_import_saved_map() {
   return {
     'map_length' : <?php echo $map_to_edit['map_length']; ?>,
@@ -396,7 +397,6 @@ function wpgmappity_import_saved_map() {
     'map_zoom' : <?php echo $map_to_edit['map_zoom']; ?>,
     'center_lat' : '<?php echo $map_to_edit['center_lat']; ?>',
     'center_long' : '<?php echo $map_to_edit['center_long']; ?>',
-    'center_lat' : '<?php echo $map_to_edit['center_lat']; ?>',
     'map_type' : '<?php echo $map_to_edit['map_type']; ?>',
     'alignment' : '<?php echo $map_to_edit['alignment']; ?>',
     'controls' : '<?php echo $map_to_edit['map_controls']; ?>',
@@ -476,10 +476,17 @@ function wpgmappity_marker_json($markers) {
 }
 
 function wpgmappity_marker_json_object($marker) {
+  $marker_text = explode("\n", $marker['marker_text']);
+  $text = '[';
+  foreach ($marker_text as $bit) {
+    $text .= "'".$bit."',";
+  }
+  $text = substr($text,0,-1);
+  $text .= '].join("\n")';
   $content = "{
   'marker_lat' : '".$marker['marker_lat']."',
   'marker_long' : '".$marker['marker_long']."',
-  'marker_text' : '".$marker['marker_text']."',
+  'marker_text' : ".$text.",
   'marker_url' : '".$marker['marker_url']."'
   }";
   return $content;

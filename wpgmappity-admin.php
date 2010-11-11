@@ -104,7 +104,7 @@ function wpgmappity_conf() {
 	
 	
 	<p>Visit the project home for user help or more infomration: <a href="http://www.wordpresspluginfu.com/wpgmappity/">http://www.wordpresspluginfu.com/wpgmappity/</a>.</p>
-<p>Is this plugin useful to you? Please take a second to <a href="http://wordpress.org/extend/plugins/wpgmappity/">rate it on wordpress.org.</a></p>
+<p>Is this plugin useful to you? Please take a second to <a href="http://wordpress.org/extend/plugins/wp-gmappity-easy-google-maps/">rate it on wordpress.org.</a></p>
 </div> <!-- narrow -->
 </div> <!-- wrap -->
 <?php	

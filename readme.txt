@@ -2,8 +2,8 @@
 Contributors: Matthew Schwartz
 Tags: google maps, maps, google, mapping
 Requires at least: 2.9.0
-Tested up to: 2.9.2
-Stable tag: 0.3.3
+Tested up to: 3.0.1
+Stable tag: 0.4.1
 
 Point, Click, Map. Build and insert Google Maps in your posts just as easily as you insert images.  All WYSIWYG: no JavaScript, no XML, no coding at all.
 
@@ -11,7 +11,7 @@ Point, Click, Map. Build and insert Google Maps in your posts just as easily as 
 
 Google Maps made Simple by WP-G-Mappity
 
-WPGMappity allows you to easily insert Google Maps into your posts.  No XML or JavaScript needed, building a Google Map is done completely in a WYSIWYG  form inside yourblog.  
+WPGMappity allows you to easily insert Google Maps into your posts.  No XML or JavaScript needed, building a Google Map is done completely in a WYSIWYG form inside your blog.  
 
 Project Home, full instructions, and help: [http://www.wordpresspluginfu.com/wpgmappity/](http://www.wordpresspluginfu.com/wpgmappity/)
 
@@ -37,6 +37,26 @@ More Installation Info: [http://www.wordpresspluginfu.com/wpgmappity/wpgmappity-
 1. WPGMappity button added to the Edit Post screen.
 
 == Changelog ==
+
+= 0.4.1 =
+
+Bug fix to allow multi-line marker text
+
+= 0.4.0 =
+
+Added a CSS rule that prevents WP 3.0 default screen from clipping maker windows
+
+Changed the JSON functionality to be more unicode friendly.
+
+Markers:
+* Added option to mark by latitude / longitude
+* Corrected a handful of bugs that were overwriting edit marker dialog
+
+= 0.3.5 =
+Put the json_decode() support both places it was supposed to be.
+
+= 0.3.4 =
+Added support for json_decode() for PHP4 systems
 
 = 0.3.3 = 
 Added a stylesheet and a single style to prevent themes from setting an image background inside a map's div.

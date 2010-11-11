@@ -34,6 +34,9 @@ function wpgmappity_shortcode_container_div($map) {
   elseif ($map['alignment'] == 'center') {
     $content .= 'margin-left:auto;margin-right:auto;">';
   }
+  else {
+    $content .= '">';
+  }
   $content .= '</div>';
   return $content;
 }
@@ -79,7 +82,7 @@ function wpgmappity_shortcode_markers_js($map_id) {
 	  $html = '<a href="'.$marker['marker_url'].'">'.$marker['marker_text'].'</a>';
 	}
 	else {
-	  $html = $marker['marker_text'];
+	  $html = str_replace("\n", '', nl2br($marker['marker_text']));
 	}
 	$content .= "GEvent.addListener(marker".$map_id."_".$i.", 'click', function() {wpgmappitymap$map_id.openInfoWindow(point$map_id_$i, '".$html."');});\n";
       }

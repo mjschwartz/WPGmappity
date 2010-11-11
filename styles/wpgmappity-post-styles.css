@@ -1,4 +1,5 @@
 div.wpgmappity_container img { 
 background: none !important;
 background-color: none !important;
+max-width: none !important;
 }

@@ -2,8 +2,21 @@
 
 function wpgmappity_insert_meta_data($map) {
   global $wpdb;
+  // define json_decode for PHP4 users
+  if (!function_exists('json_decode')) {
+    function json_decode($content, $assoc=false) {
+      require_once wpgmappity_plugin_path().'classes/JSON.phps';
+        if ($assoc) {
+          $json = new Services_JSON(SERVICES_JSON_LOOSE_TYPE);
+        }
+        else {
+          $json = new Services_JSON;
+        }
+        return $json->decode($content);
+    }
+  }
   // JSON.stringify leaves \'s - remove them for json_decode
-  $map = json_decode(str_replace('\\', '', $map), true);
+  $map = json_decode(stripslashes($map), true);
   $table = $wpdb->prefix . "wpgmappity_maps";
   $query = $wpdb->prepare( "
     INSERT INTO $table
@@ -33,11 +46,24 @@ function wpgmappity_insert_meta_data($map) {
 function wpgmappity_update_meta_data($map, $map_id) {
   
   global $wpdb;
+  // define json_decode for PHP4 users
+  if (!function_exists('json_decode')) {
+    function json_decode($content, $assoc=false) {
+      require_once wpgmappity_plugin_path().'classes/JSON.phps';
+        if ($assoc) {
+          $json = new Services_JSON(SERVICES_JSON_LOOSE_TYPE);
+        }
+        else {
+          $json = new Services_JSON;
+        }
+        return $json->decode($content);
+    }
+  }
   // JSON.stringify leaves \'s - remove them for json_decode
-  $map = json_decode(str_replace('\\', '', $map), true);
+  $map = json_decode(stripslashes($map), true);
   $table = $wpdb->prefix . "wpgmappity_maps";
   $marker_table = $wpdb->prefix . "wpgmappity_markers";
-  
+  //die(var_dump($map['map_address']));
   $wpdb->update( $table, array( 'map_length' => $map['map_length'], 
       'map_height' => $map['map_height'], 
       'map_zoom' => $map['map_zoom'], 
@@ -47,9 +73,7 @@ function wpgmappity_update_meta_data($map, $map_id) {
       'alignment' => $map['alignment'],
       'map_address' => $map['map_address'], 
       'map_controls' => $map['controls'] ),
-    array( 'id' => $map_id ),
-    '%s',
-    '%d');
+    array( 'id' => $map_id ) );
 // delete all old markers
   $query = $wpdb->prepare( "
     DELETE FROM $marker_table

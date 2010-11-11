@@ -43,7 +43,7 @@ function wpgmappity_update_map_size(map, data) {
     {
       "width" : data.map_length,
       "height" : data.map_height
-    }, 
+    },
     function() {
     	       map.checkResize();
 	       }
@@ -166,19 +166,20 @@ function wpgmappity_clean_configure_marker_frame() {
 
 function wpgmappity_marker_event_callback(data, map, marker, marker_id) {
   return function(latlng) {
-    var html = "<p>";
+
+    var html = "";
     if (data.markers[marker_id].marker_url !== undefined)
     {
       html += "<a href='" + data.markers[marker_id].marker_url + "'>";
     }
-    html += data.markers[marker_id].marker_text;
+    html += data.markers[marker_id].marker_text.replace(/\n/g,'<br />');
     if (data.markers[marker_id].marker_url !== undefined)
     {
       html += "</a>";
     }
-    html += "</p>";
+    //var html = data.markers[marker_id].marker_text;
     map.openInfoWindow(latlng, html);
-    }
+  };
 }
 
 function wpgamppity_rebuild_marker(data, map, marker, marker_id) {
@@ -189,27 +190,28 @@ function wpgamppity_rebuild_marker(data, map, marker, marker_id) {
   map.addOverlay(marker);
 }
 
-function wpgmappity_configure_marker_submit_callback(data, map, marker) {
+function wpgmappity_configure_marker_submit_callback(data, map) {
   return function() {
-    var marker_id = ( jQuery("#wgmappity_marker_configure_id").val() - 1);
+    var marker_id = ( jQuery("#wgmappity_marker_configure_id").val());
+    var marker = data.markers[marker_id];
     data.markers[marker_id].marker_text = jQuery("#wgmappity_marker_configure_text").val();
-    if ( jQuery("#wgmappity_marker_configure_link").is(':checked') )
-    {
-      data.markers[marker_id].marker_url = jQuery("#wgmappity_marker_configure_url").val();
-    }
-
     wpgamppity_rebuild_marker(data, map, marker, marker_id);
     wpgmappity_clean_configure_marker_frame();
+    jQuery("#wgmappity_marker_configure_text").val('');
     tb_remove();
   };
 }
 
-function wpgmappity_configure_marker_callback(data, map, marker) {
+function wpgmappity_configure_marker_callback(data, map, marker, marker_number) {
   return function() {
-    jQuery("#wgmappity_marker_configure_id").val(data.markers.length);
+    jQuery("#wgmappity_marker_configure_id").val(marker_number);
+    jQuery("#wgmappity_marker_configure_text").val('');
+    if (data.markers[marker_number] != undefined) {
+    jQuery("#wgmappity_marker_configure_text").val(data.markers[marker_number].marker_text);
+
+    }
     tb_show('Marker Configuration',"#TB_inline?height=220&width=475&inlineId=wgmappity_marker_configure_dialog", null);
-    jQuery("#wgmappity_marker_configure_submit").click(wpgmappity_configure_marker_submit_callback(data, map, marker));
-  };
+ };
 }
 
 function wpgmappity_add_marker_to_list(marker_data, marker, data, map) {
@@ -222,7 +224,7 @@ function wpgmappity_add_marker_to_list(marker_data, marker, data, map) {
   text += "</div>";
   jQuery("#wpgamppity_add_marker_container").before(text);
   jQuery("#" + delete_marker_id).click(wpgmappity_delete_marker_callback(data, map, marker));
-  jQuery("#" + configure_marker_id).click(wpgmappity_configure_marker_callback(data, map, marker));
+  jQuery("#" + configure_marker_id).click(wpgmappity_configure_marker_callback(data, map, marker, (data.markers.length-1)));
 }
 
 function wpgmapity_add_marker_to_map(data, map, response) {
@@ -242,6 +244,14 @@ function wpgmapity_add_marker_to_map(data, map, response) {
   wpgmappity_add_marker_to_list(marker_data, marker, data, map);
 }
 
+function wpgmappity_geocode_from_latlng(map, data) {
+  return function(response) {
+    if (response.Status.code == '200') {
+      tb_remove();
+      wpgmapity_add_marker_to_map(data, map, response);
+    }
+  }
+}
 
 function wpgmappity_geocode_response(map, data, type) {
   return function(response) {
@@ -321,15 +331,25 @@ function wpgmappity_set_center_point_event(map, data) {
 function wpgmappity_set_add_marker_event(map, data) {
   jQuery("#wpgamppity_add_marker_go").click(function() {
     tb_show('Add a Marker',
-	    "#TB_inline?height=200&width=475&inlineId=wpgmappity_add_marker_dialog",
+	    "#TB_inline?height=250&width=475&inlineId=wpgmappity_add_marker_dialog",
 	    null);
     return false;
   });
   jQuery("#wpgmappity_marker_point_submit").live('click', function() {
-    var message = '<div id="wgmappity_small_ajax"></div>';
-    jQuery("#wpgmappity_marker_flash").html(message);
-    var geocoder = new GClientGeocoder();
-    geocoder.getLocations(jQuery("#wpgmappity_marker_point").val(), wpgmappity_geocode_response(map, data, 'marker') );
+
+    // lat/long or address?
+    if ( jQuery("#wpgmappity_marker_point").val() != '' ) {
+      var message = '<div id="wgmappity_small_ajax"></div>';
+      jQuery("#wpgmappity_marker_flash").html(message);
+      var geocoder = new GClientGeocoder();
+      geocoder.getLocations(jQuery("#wpgmappity_marker_point").val(), wpgmappity_geocode_response(map, data, 'marker') );
+    }
+    else {
+      var latlng = jQuery("#wpgmappity_marker_point_latlng").val().split(',');
+      var point_from_latlng = new GLatLng(latlng[0], latlng[1]);
+      var geocoder = new GClientGeocoder();
+      geocoder.getLocations(point_from_latlng, wpgmappity_geocode_from_latlng(map, data));
+    }
     return false;
   });
   jQuery("#wpgmappity_more_marker_results_not_here").live('click', function() {
@@ -413,6 +433,10 @@ function wpgmappity_set_controls_event(map, data) {
   });
 }
 
+function wpgmappity_set_modal_events(map, data) {
+  // marker submit
+  jQuery("#wgmappity_marker_configure_submit").click(wpgmappity_configure_marker_submit_callback(data, map));
+}
 
 function wgmappity_set_sample_map_events(map, wpgmappity_gmap_data) {
   wpgmappity_set_size_event(map, wpgmappity_gmap_data);
@@ -422,6 +446,7 @@ function wgmappity_set_sample_map_events(map, wpgmappity_gmap_data) {
   wpgmappity_set_type_event(map, wpgmappity_gmap_data);
   wpgmappity_set_alignment_event(map, wpgmappity_gmap_data);
   wpgmappity_set_controls_event(map, wpgmappity_gmap_data);
+  wpgmappity_set_modal_events(map, wpgmappity_gmap_data);
 }
 
 function wgmappity_set_map_submission_event(map, data) {

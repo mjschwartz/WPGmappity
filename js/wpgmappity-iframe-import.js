@@ -4,6 +4,7 @@ function wpgmappity_import_center(map, data, imported_map) {
   data.center_long = imported_map.center_long;
   if (imported_map.map_address != '') {
     jQuery("#wpgmappity_center_point").val(imported_map.map_address);
+    data.map_address = imported_map.map_address;
   }
   wpgmappity_set_center(map,data);
 }
@@ -109,7 +110,6 @@ function wpgmappity_import_size(map, data, imported_map) {
 
 
 function wpgmappity_set_up_map(map_id, map, data) {
-
   var imported_map = wpgmappity_import_saved_map();
   wpgmappity_import_zoom(map, data, imported_map);
   wpgmappity_import_center(map, data, imported_map);

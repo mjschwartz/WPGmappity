@@ -14,10 +14,13 @@ function getUrlVars()
 }
 
 function wpgmappity_build_sample_map(target_div) {
-  var map = new GMap2(document.getElementById(target_div));
-  map.setCenter(new GLatLng(39.185575, -96.575206), 3);
-  map.checkResize();
-  return map;
+  var myOptions = {
+    zoom: 4,
+    center: new google.maps.LatLng(39.185575, -96.575206),
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    mapTypeControl: false
+    };
+  map = new google.maps.Map(document.getElementById(target_div), myOptions);
 }
 
 function wpgmappity_build_data_container() {
@@ -468,7 +471,7 @@ function wgmappity_set_map_submission_event(map, data) {
 
 function wpgmappity_iframe_js() {
   var wpgmappity_gmap_data = wpgmappity_build_data_container();
-  var map = wpgmappity_build_sample_map("wpgmappity_sample_map");
+  wpgmappity_build_sample_map("wpgmappity_sample_map");
   wgmappity_set_sample_map_events(map, wpgmappity_gmap_data);
   wgmappity_set_map_submission_event(map, wpgmappity_gmap_data);
   var gets = getUrlVars();
@@ -478,4 +481,9 @@ function wpgmappity_iframe_js() {
 }
 
 // google.setOnLoadCallback(wpgmappity_iframe_js);
+
+// Globals
+var map;
+
+
 window.onload = function() { wpgmappity_iframe_js() };

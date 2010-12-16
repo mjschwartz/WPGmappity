@@ -2,12 +2,7 @@
 
 function wpgmappity_theme_scripts() {
   wp_enqueue_script( 'jquery' );
-  $wpgmappity_api_key = wpgmappity_get_api_key();
-  if ( isset($wpgmappity_api_key) && ($wpgmappity_api_key != '') ) {
-    $gmap_url = 'http://www.google.com/jsapi?key=' . $wpgmappity_api_key;
-    wp_enqueue_script( 'gmap_loader', $gmap_url );
-  }
-  wp_enqueue_script( 'gmap-admin-functions', wpgmappity_plugin_url( 'js/wpgmappity-gmap.js' ),array( 'gmap_loader' ) );
+  wp_enqueue_script( 'gmap_loader', 'http://maps.google.com/maps/api/js?sensor=false' );
 }
 
 add_action( 'wp_print_scripts', 'wpgmappity_theme_scripts' );

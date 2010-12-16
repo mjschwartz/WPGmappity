@@ -39,7 +39,7 @@ do_action('admin_print_scripts');
 do_action('admin_head-media-upload-popup');
 do_action('admin_head');
 ?>
-<link media="all" type="text/css" rel="stylesheet" href="<?php echo $wgmappity_style_sheet ?>">
+<link media="all" type="text/css" rel="stylesheet" href="<?php echo $wgmappity_style_sheet ?>"/>
 </head>
 <body<?php if ( isset($GLOBALS['body_id']) ) echo ' id="' . $GLOBALS['body_id'] . '"'; ?>>
 
@@ -58,7 +58,7 @@ do_action('admin_head');
 
 <div id="map_items">
 
-<p>Below are the maps currently stored in your blog's database.</p>
+<p>Below are the maps currently stored in your blog\'s database.</p>
 
 
 
@@ -106,7 +106,7 @@ else { ?>
 </div>
 
 <form id="wpgmappity-create" action="media-upload.php?type=wpgmappity&amp;tab=type&amp;post_id=<?php echo $post_id ?>" method="post" autocomplete="off">
-<br>
+<br/>
 <h3 class="media-title">Add a Google Map to your post</h3>
 <div id="media-upload-notice"></div>
 <div id="wpgmappity-upload-error"></div>
@@ -128,19 +128,19 @@ else { ?>
     <td class="wpgmappity_sample_choice">
 
 	<div class="wpgmappity_size_choice">
-	<input type="radio" value="small" id="wpgmappity_selector_size_small" name="wpgmappity_selector_size">
+	<input type="radio" value="small" id="wpgmappity_selector_size_small" name="wpgmappity_selector_size"/>
 	<label for="wpgmappity_selector_size_small">Small</label>
 	  <br/>(300x170)
 	</div>
 
 	<div class="wpgmappity_size_choice">
-        <input type="radio" value="medium" id="wpgmappity_selector_size_medium" name="wpgmappity_selector_size" checked="checked">
+        <input type="radio" value="medium" id="wpgmappity_selector_size_medium" name="wpgmappity_selector_size" checked="checked"/>
         <label for="wpgmappity_selector_size_medium">Medium</label>
         <br/>(450x300)
 	</div>
 
 	<div class="wpgmappity_size_choice">
-	<input type="radio" value="large" id="wpgmappity_selector_size_large" name="wpgmappity_selector_size">
+	<input type="radio" value="large" id="wpgmappity_selector_size_large" name="wpgmappity_selector_size"/>
 	<label for="wpgmappity_selector_size_large">Large</label>
 	<br/>(700x400)
 	</div>
@@ -181,7 +181,7 @@ else { ?>
 
   <td>
     <div id="wpgmappity_center_point_flash">
-    <p>Type an address for your map's center point.</p>
+    <p>Type an address for your map\'s center point.</p>
     </div>
     <div id="wpgmappity_center_point_wrapper">
       <input type="text" name="wpgmappity_center_point" id="wpgmappity_center_point" value="" size="45" maxlength="120" style="float:left;"/>
@@ -213,9 +213,9 @@ else { ?>
        <div id="wpgmappity_zoom_slider_status">3</div>
     </div>
     <div id="wpgmappity_zoom_slider_wrapper">
-      <p><img src="<?php echo wpgmappity_plugin_url( "styles/leftarrows.gif" )?>" width="10" height="10" />
+      <p><img src="<?php echo wpgmappity_plugin_url( "styles/leftarrows.gif" )?>" width="10" height="10" alt="left" />
       Adjust the zoom level of the map by dragging the slider.
-      <img src="<?php echo wpgmappity_plugin_url( "styles/rightarrows.gif" )?>" width="10" height="10" />
+      <img src="<?php echo wpgmappity_plugin_url( "styles/rightarrows.gif" )?>" width="10" height="10" alt="left" />
     </p>
     <div id="wpgmappity_zoom_control_container">
       <div id="wpgmappity_zoom_slider"></div>
@@ -245,7 +245,7 @@ else { ?>
           <input type="text" name="wpgmappity_marker_point" id="wpgmappity_marker_point" value="" size="35" maxlength="120"/></p>
 	  <p>By Latitude, Longitude:<br/>
           <input type="text" name="wpgmappity_marker_point" id="wpgmappity_marker_point_latlng" value="" size="35" maxlength="120"/></p>
-          <p style="text-align:center;"">
+          <p style="text-align:center;">
 	    <button id="wpgmappity_marker_point_submit" class="button">Mark Point</button>
 	  </p>
          

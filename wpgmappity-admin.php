@@ -65,19 +65,7 @@ function wpgmappity_conf() {
 <div class="wrap">
 <h2>WP G-Mappity Configuration</h2>
 <div class="narrow">
-	<form action="" method="post" style="margin: auto; width: 500px; ">
-	<?php
-	if ( function_exists('wp_nonce_field') )
-		wp_nonce_field('wpgmappity-update_' . $settings);
-	?>
-	<p>In order to use the WP G-Mappity plug-in you must have an API Key from Google Maps.  The key is free and easy to obtain.</p>
-	<p>To obtain a key now you can visit the <a href="http://code.google.com/apis/maps/signup.html">Google Maps API Sign up page</a> and fill out a short form.  The page also contains lots of information explaining what the API key is.</p>
-	<p>After filling out the form at the link above you will be taken to a web page that displays your shiny new API key.  Copy the key and paste it in the textbox below.</p>
-	<label for="gmaps_api"><strong>Google Maps API Key:</strong></label>
-	<input id="gmaps_api" name="gmaps_api" type="text" size="60" maxlength="100" value="<?php echo $settings['gmaps_api']; ?>" style="font-family: 'Courier New', Courier, mono; font-size: 1.2em;" />
-	<p class="submit"><input type="submit" name="submit-api" value="Update API Key" /></p>
-	</form>
-	<hr style="width:250px;margin:auto;" />
+	
 	<form action="" method="post" style="margin: auto; width: 500px;">
 	<?php
 	if ( function_exists('wp_nonce_field') )

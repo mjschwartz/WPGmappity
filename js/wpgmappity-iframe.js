@@ -470,7 +470,7 @@ function wgmappity_set_map_submission_event(map, data) {
 }
 
 function wpgmappity_iframe_js() {
-  var wpgmappity_gmap_data = wpgmappity_build_data_container();
+  wpGmappityData = wpgmappity_build_data_container();
   wpgmappity_build_sample_map("wpgmappity_sample_map");
   wgmappity_set_sample_map_events(map, wpgmappity_gmap_data);
   wgmappity_set_map_submission_event(map, wpgmappity_gmap_data);
@@ -484,6 +484,7 @@ function wpgmappity_iframe_js() {
 
 // Globals
 var map;
+var wpGmappityData;
 
 
 window.onload = function() { wpgmappity_iframe_js() };

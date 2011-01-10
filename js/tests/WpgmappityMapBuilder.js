@@ -1,0 +1,10 @@
+
+
+
+(function($) {
+
+module("WpgmappityMapBuilder");
+
+
+})(jQuery);
+

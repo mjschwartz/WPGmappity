@@ -2,8 +2,8 @@
 Contributors: Matthew Schwartz
 Tags: google maps, maps, google, mapping
 Requires at least: 2.9.0
-Tested up to: 3.0.1
-Stable tag: 0.4.1
+Tested up to: 3.1
+Stable tag: 0.4.2
 
 Point, Click, Map. Build and insert Google Maps in your posts just as easily as you insert images.  All WYSIWYG: no JavaScript, no XML, no coding at all.
 
@@ -37,6 +37,12 @@ More Installation Info: [http://www.wordpresspluginfu.com/wpgmappity/wpgmappity-
 1. WPGMappity button added to the Edit Post screen.
 
 == Changelog ==
+
+= 0.4.2 =
+
+Important bug fix: WordPress 3.1's update to version 1.8 of jQuery UI broke the input screen.  
+Several pieces of jQuery functionality that were needed were broken out into additional files
+and needed to be included in the plugin's scripts manually.
 
 = 0.4.1 =
 

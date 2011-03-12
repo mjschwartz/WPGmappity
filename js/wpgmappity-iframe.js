@@ -144,6 +144,7 @@ function wpgmappity_set_zoom_event(map, data) {
       jQuery("#wpgmappity_zoom_slider_status").html(position);
       if (map.getZoom() != position) {
 	map.setZoom(position);
+        wpgmappity_post_resize(map, data)
 	data.map_zoom = position;
 	}
       }
@@ -391,15 +392,19 @@ function wpgmappity_change_map_type(map, data, selection) {
   switch(selection) {
   case 'normal':
   data.map_type = 'normal';
-  map.setMapType(G_NORMAL_MAP);
+  map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
   break;
   case 'satellite':
   data.map_type = 'satellite';
-  map.setMapType(G_SATELLITE_MAP);
+  map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
   break;
   case 'hybrid':
   data.map_type = 'hybrid';
-  map.setMapType(G_HYBRID_MAP);
+  map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+  break;
+  case 'terrain':
+  data.map_type = 'terrain';
+  map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
   break;
   }
 }

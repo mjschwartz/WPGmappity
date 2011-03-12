@@ -1,1 +1,1 @@
-google.load("maps", "2");
+//google.load("maps", "2");

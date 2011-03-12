@@ -129,26 +129,6 @@ function wgmappity_settings_destroy() {
 register_activation_hook( __FILE__, 'wgmappity_settings_init' );
 register_deactivation_hook( __FILE__, 'wgmappity_settings_destroy' );
 
-
-function wpgmappity_get_api_key() {
-  $settings = get_option('wpgmappity_options');
-  return $settings['gmaps_api'];
-}
-
-
-// Warning for no api in place
-add_action('admin_init', 'wpgmappity_admin_warning');
-function wpgmappity_admin_warning() {
-	
-  $settings = get_option('wpgmappity_options');
-  if ( $settings['gmaps_api'] == '' ) {
-    function wpgmappity_api_warning() {
-      echo "<div id='wpgmappity_api-warning' class='updated fade'><p><strong>".__('WP G-Mappity is almost ready.')."</strong> ".sprintf(__('You must <a href="%1$s">enter your Google Maps API key</a> for it to work.'), "plugins.php?page=wpgmappity-api-config")."</p></div>";
-    }
-    add_action('admin_notices', 'wpgmappity_api_warning');
-  }
-}
-
 // DB Versioning
 add_action('admin_init', 'wpgmappity_db_version');
 function wpgmappity_db_version() {

@@ -13,10 +13,17 @@ function getUrlVars()
     return vars;
 }
 
-function wpgmappity_build_sample_map(target_div) {
-  var map = new GMap2(document.getElementById(target_div));
-  map.setCenter(new GLatLng(39.185575, -96.575206), 3);
-  map.checkResize();
+function wpgmappity_build_sample_map(target_div, data) {
+  var latlng = new google.maps.LatLng(data.center_lat, data.center_long);
+  
+  var myOptions = {
+    zoom: data.map_zoom,
+    center: latlng,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    disableDefaultUI : true
+  };
+  var map = new google.maps.Map(document.getElementById(target_div), myOptions);
+  google.maps.event.trigger(map, 'resize');
   return map;
 }
 
@@ -38,6 +45,12 @@ function wpgmappity_build_data_container() {
   return data;
 }
 
+function wpgmappity_post_resize(map, data) {
+  google.maps.event.trigger(map, 'resize');
+  map.setCenter(new google.maps.LatLng(data.center_lat, data.center_long));
+}
+
+
 function wpgmappity_update_map_size(map, data) {
   jQuery("#wpgmappity_sample_map").animate(
     {
@@ -45,7 +58,7 @@ function wpgmappity_update_map_size(map, data) {
       "height" : data.map_height
     },
     function() {
-    	       map.checkResize();
+      wpgmappity_post_resize(map, data);
 	       }
   );
 }
@@ -138,7 +151,7 @@ function wpgmappity_set_zoom_event(map, data) {
 }
 
 function wpgmappity_set_center(map,data) {
-  map.setCenter(new GLatLng(data.center_lat, data.center_long), data.map_zoom);
+  map.setCenter(new google.maps.LatLng(data.center_lat, data.center_long));
   var message = "<p><span class='wpgamapptiy_success'>Center point set.</span></p>";
   jQuery("#wpgmappity_center_point_flash").html(message);
 }
@@ -468,7 +481,7 @@ function wgmappity_set_map_submission_event(map, data) {
 
 function wpgmappity_iframe_js() {
   var wpgmappity_gmap_data = wpgmappity_build_data_container();
-  var map = wpgmappity_build_sample_map("wpgmappity_sample_map");
+  var map = wpgmappity_build_sample_map("wpgmappity_sample_map", wpgmappity_gmap_data);
   wgmappity_set_sample_map_events(map, wpgmappity_gmap_data);
   wgmappity_set_map_submission_event(map, wpgmappity_gmap_data);
   var gets = getUrlVars();

@@ -267,12 +267,13 @@ function wpgmappity_geocode_from_latlng(map, data) {
 }
 
 function wpgmappity_geocode_response(map, data, type) {
-  return function(response) {
-    if (response.Status.code == '200') {
+  return function(response, status) {
+    //console.log(response)
+    if (status == 'OK') {
       // multiple options
-      if (response.Placemark.length > 1) {
+      if (response.length > 1) {
 	var text = '';
-	for (x in response.Placemark) {
+	for (x in response) {
 	  text += '<p><a class="wpgmappity_more_';
 	  if (type == 'point') {
 	    text += 'center_link" href="#new_point">';
@@ -280,7 +281,7 @@ function wpgmappity_geocode_response(map, data, type) {
 	  else if (type == 'marker') {
 	    text += 'marker_link" href="#new_marker">';
 	    }
-	  text += response.Placemark[x].address + "</a></p>";
+	  text += response[x].formatted_address + "</a></p>";
 	  }
 	if (type == 'point') {
 	  jQuery("#wpgmappity_more_center_results_contents").html(text);
@@ -294,10 +295,11 @@ function wpgmappity_geocode_response(map, data, type) {
       // direct hit
       else {
 	if (type == 'point') {
-	  data.center_lat = response.Placemark[0].Point.coordinates[1];
-	  data.center_long = response.Placemark[0].Point.coordinates[0];
+            //console.log(response)
+	  data.center_lat = response[0].geometry.location.lat();
+	  data.center_long = response[0].geometry.location.lng();
 	  wpgmappity_set_center(map,data);
-	  data.map_address = response.name;
+	  data.map_address = response[0].formatted_address;
 	  }
 	else if (type == 'marker') {
 	  tb_remove();
@@ -323,8 +325,15 @@ function wpgmappity_set_center_point_event(map, data) {
   jQuery("#wpgmapity_center_point_submit").click(function() {
     var message = '<div id="wgmappity_small_ajax"></div>';
     jQuery("#wpgmappity_center_point_flash").html(message);
-    var geocoder = new GClientGeocoder();
-    geocoder.getLocations(jQuery("#wpgmappity_center_point").val(), wpgmappity_geocode_response(map, data, 'point') );
+    var geoCodeRequest = {
+        address : jQuery("#wpgmappity_center_point").val()
+    };
+    
+    var geocoder = new google.maps.Geocoder;
+    geocoder.geocode(geoCodeRequest, wpgmappity_geocode_response(map, data, 'point'));
+    
+    //var geocoder = new GClientGeocoder(geoCodeRequest, wpgmappity_geocode_response(map, data, 'point'));
+    //geocoder.getLocations(jQuery("#wpgmappity_center_point").val(), wpgmappity_geocode_response(map, data, 'point') );
     return false;
   });
   jQuery("#wpgmappity_more_center_results_not_here").live('click', function() {

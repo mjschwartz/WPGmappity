@@ -20,6 +20,8 @@ function wpgmappity_build_sample_map(target_div, data) {
     zoom: data.map_zoom,
     center: latlng,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
+    disableDoubleClickZoom : true,
+    scrollwheel : false,
     disableDefaultUI : true
   };
   var map = new google.maps.Map(document.getElementById(target_div), myOptions);

@@ -130,7 +130,7 @@ function wpgmappity_set_size_event(map, data) {
     jQuery("input[name='wpgmappity_selector_size']").attr("checked", false);
     jQuery("#wpgmappity_selector_size_custom").attr("checked", true);
     tb_remove();
-
+    return true;
 
 					       });
 }
@@ -311,12 +311,13 @@ function wpgmappity_geocode_response(map, data, type) {
 	}
       }
     else {
+      var div;
       var message = "<p><span class='wpgamapptiy_warning'>Geocoding failed. Please try again.</span></p>";
       if (type == 'center') {
-	var div = 'center_point';
+	div = 'center_point';
 	}
       else {
-	var div = 'marker';
+	div = 'marker';
 	}
       jQuery("#wpgmappity_" + div + "_flash").html(message);
       }
@@ -361,18 +362,18 @@ function wpgmappity_set_add_marker_event(map, data) {
     return false;
   });
   jQuery("#wpgmappity_marker_point_submit").live('click', function() {
-
+    var geocoder;
     // lat/long or address?
     if ( jQuery("#wpgmappity_marker_point").val() != '' ) {
       var message = '<div id="wgmappity_small_ajax"></div>';
       jQuery("#wpgmappity_marker_flash").html(message);
-      var geocoder = new GClientGeocoder();
+      geocoder = new GClientGeocoder();
       geocoder.getLocations(jQuery("#wpgmappity_marker_point").val(), wpgmappity_geocode_response(map, data, 'marker') );
     }
     else {
       var latlng = jQuery("#wpgmappity_marker_point_latlng").val().split(',');
       var point_from_latlng = new GLatLng(latlng[0], latlng[1]);
-      var geocoder = new GClientGeocoder();
+      geocoder = new GClientGeocoder();
       geocoder.getLocations(point_from_latlng, wpgmappity_geocode_from_latlng(map, data));
     }
     return false;
@@ -425,7 +426,9 @@ function wpgmappity_set_alignment_event(map, data) {
 }
 
 function wpgmappity_draw_controls(map, data) {
+    var control;
     switch (data.controls) {
+
     case 'none' :
     	if (data.controls_object != '') {
     	    map.removeControl(data.controls_object);
@@ -438,7 +441,7 @@ function wpgmappity_draw_controls(map, data) {
     	    map.removeControl(data.controls_object);
 	    data.controls_object = '';
 	}
-    	 var control = new GSmallMapControl();
+    	 control = new GSmallMapControl();
 	 map.addControl(control);
 	 data.controls_object = control;
 	 break;
@@ -447,7 +450,7 @@ function wpgmappity_draw_controls(map, data) {
     	    map.removeControl(data.controls_object);
 	    data.controls_object = '';
 	}
-    	 var control = new GLargeMapControl3D();
+    	 control = new GLargeMapControl3D();
 	 map.addControl(control);
 	 data.controls_object = control;
 	 break;

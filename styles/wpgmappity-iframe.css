@@ -97,7 +97,7 @@ table#wpgmappity_sample_table tr#wpgmappity-iframe-center-point {
 div#wpgmappity_center_point_wrapper {
 	margin-top:5px;
 }
-div#wpgmappity_center_point_flash,  div#wpgmappity_marker__flash,{
+div#wpgmappity_center_point_flash,  div#wpgmappity_marker__flash {
 	width:100%;
 	height:14px;
 }
@@ -169,6 +169,14 @@ div.wpgmappity_type_choice {
 	margin:0;
 	width:33%;
 }
+
+/* row in a row */
+div.wpgmappity_choice_row {
+	float:left;
+	margin:0;
+	width:100%;
+}
+
 
 /*submit */
 div.wpgmappity_submit {

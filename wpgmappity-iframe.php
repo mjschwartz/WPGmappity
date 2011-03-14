@@ -228,7 +228,7 @@ else { ?>
     <th>
       <label for="wpgamppity_add_marker">
         <span class="wpgmappity_selector_size">
-          Add Markers
+          Markers
         </span>
       </label>
     </th>
@@ -286,18 +286,70 @@ else { ?>
       </label>
     </th>
     <td class="wpgmappity_sample_choice">
-      <div class="wpgmappity_type_choice">
-        <input type="radio" value="none" id="wpgmappity_controls_none" name="wpgmappity_controls" checked="checked" />
-        <label for="wpgmappity_controls_none">None</label>
-      </div>
-      <div class="wpgmappity_type_choice">
-        <input type="radio" value="small" id="wpgmappity_controls_small" name="wpgmappity_controls" />
-        <label for="wpgmappity_controls_small">Small Controls</label>
-      </div>
-      <div class="wpgmappity_type_choice">
-        <input type="radio" value="large" id="wpgmappity_controls_large" name="wpgmappity_controls" />
-        <label for="wpgmappity_controls_large">Large Controls</label>
-      </div>  
+        <!-- ZOOM CONTROL -->
+      <div class="wpgmappity_choice_row" style="border-bottom:1px solid #DFDFDF;padding-bottom:5px;padding-top:5px;">
+          <div class="wpgmappity_type_choice" style="padding-top:5px;width:30%;">
+            <input type="checkbox" value="Yes" id="wpgmappity_controls_zoom_on" name="wpgmappity_controls_zoom_on" />
+            <label for="wpgmappity_controls_zoom_on"><strong>Zoom Control</strong></label>
+          </div>
+          <div class="wpgmappity_type_choice" style="width:30%;">
+            <label for="wpgmappity_controls_zoom_size">Size:</label>
+            <select name="wpgmappity_controls_zoom_size" id="wpgmappity_controls_zoom_size">
+                <option value="DEFAULT">Default</option>
+                <option value="LARGE">Large</option>
+                <option value="SMALL">Small</option>
+            </select>
+          </div>
+          <div class="wpgmappity_type_choice" style="width:39%;">
+            <label for="wpgmappity_controls_zoom_position">Position:</label>
+            <select name="wpgmappity_controls_zoom_position" id="wpgmappity_controls_zoom_position">
+                <option value="TOP_RIGHT">Top Right</option>
+                <option value="TOP_CENTER">Top Center</option>
+                <option value="TOP_LEFT">Top Left</option>
+                <option value="RIGHT_TOP">Right Top</option>
+                <option value="RIGHT_CENTER">Right Center</option>
+                <option value="TOP_BOTTOM">Right Bottom</option>
+                <option value="BOTTOM_RIGHT">Bottom Right</option>
+                <option value="BOTTOM_CENTER">Bottom Center</option>
+                <option value="BOTTOM_LEFT">Bottom Left</option>
+                <option value="LEFT_TOP">Left Top</option>
+                <option value="LEFT_CENTER">Left Center</option>
+                <option value="LEFT_BOTTOM">Left Bottom</option>
+            </select>
+          </div>
+      </div> <!-- end ZOOM CONTROL -->
+        <!-- MAP TYPE -->
+      <div class="wpgmappity_choice_row" style="border-bottom:1px solid #DFDFDF;padding-bottom:5px;padding-top:5px;">
+          <div class="wpgmappity_type_choice" style="padding-top:5px;width:30%;">
+            <input type="checkbox" value="Yes" id="wpgmappity_controls_type_on" name="wpgmappity_controls_type_on" />
+            <label for="wpgmappity_controls_type_on"><strong>Map Type Control</strong></label>
+          </div>
+          <div class="wpgmappity_type_choice" style="width:30%;">
+            <label for="wpgmappity_controls_type_style">Size:</label>
+            <select name="wpgmappity_controls_type_style" id="wpgmappity_controls_type_style">
+                <option value="DEFAULT">Default</option>
+                <option value="DROPDOWN_MENU">Dropdown</option>
+                <option value="HORIZONTAL_BAR">Bar</option>
+            </select>
+          </div>
+          <div class="wpgmappity_type_choice" style="width:39%;">
+            <label for="wpgmappity_controls_type_position">Position:</label>
+            <select name="wpgmappity_controls_type_position" id="wpgmappity_controls_type_position">
+                <option value="TOP_RIGHT">Top Right</option>
+                <option value="TOP_CENTER">Top Center</option>
+                <option value="TOP_LEFT">Top Left</option>
+                <option value="RIGHT_TOP">Right Top</option>
+                <option value="RIGHT_CENTER">Right Center</option>
+                <option value="TOP_BOTTOM">Right Bottom</option>
+                <option value="BOTTOM_RIGHT">Bottom Right</option>
+                <option value="BOTTOM_CENTER">Bottom Center</option>
+                <option value="BOTTOM_LEFT">Bottom Left</option>
+                <option value="LEFT_TOP">Left Top</option>
+                <option value="LEFT_CENTER">Left Center</option>
+                <option value="LEFT_BOTTOM">Left Bottom</option>
+            </select>
+          </div>
+      </div> <!-- end MAP TYPE -->
     </td>
   </tr>
   

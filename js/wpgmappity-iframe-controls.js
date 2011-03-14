@@ -1,6 +1,6 @@
 
 // utility function for getting the Position property
-// same as the field name, but not trusting user input and all that
+// same as the field name, but its user input and all that
 function wpgmappity_control_valid_position(choice) {
     var valid_choices = [
         'TOP_RIGHT', 

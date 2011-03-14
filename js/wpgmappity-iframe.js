@@ -30,6 +30,21 @@ function wpgmappity_build_sample_map(target_div, data) {
 }
 
 function wpgmappity_build_data_container() {
+  var empty_controls_object = {
+    zoom : {
+      active : false,
+      zoom_object : {},
+      size : '',
+      position : ''
+    },
+    type : {
+      active : false,
+      type_object : {},
+      style : '',
+      position : ''
+    }
+  };
+
   var data = {
     'map_length': 450,
     'map_height': 300,
@@ -39,8 +54,7 @@ function wpgmappity_build_data_container() {
     'markers' : [],
     'map_type' : 'normal',
     'alignment' : 'none',
-    'controls' : 'none',
-    'controls_object' : '',
+    'controls' : empty_controls_object,
     'map_address' : '',
     'slider_object' : ''
     };
@@ -425,45 +439,7 @@ function wpgmappity_set_alignment_event(map, data) {
   });
 }
 
-function wpgmappity_draw_controls(map, data) {
-    var control;
-    switch (data.controls) {
 
-    case 'none' :
-    	if (data.controls_object != '') {
-    	    map.removeControl(data.controls_object);
-	    data.controls_object = '';
-	}
-	data.controls = 'none';
-    	break;
-    case 'small' :
-    	 if (data.controls_object != '') {
-    	    map.removeControl(data.controls_object);
-	    data.controls_object = '';
-	}
-    	 control = new GSmallMapControl();
-	 map.addControl(control);
-	 data.controls_object = control;
-	 break;
-    case 'large' :
-    	 if (data.controls_object != '') {
-    	    map.removeControl(data.controls_object);
-	    data.controls_object = '';
-	}
-    	 control = new GLargeMapControl3D();
-	 map.addControl(control);
-	 data.controls_object = control;
-	 break;
-    }
-}
-
-
-function wpgmappity_set_controls_event(map, data) {
-  jQuery("input[name='wpgmappity_controls']").click(function(){
-    data.controls = jQuery(this).attr("value");
-    wpgmappity_draw_controls(map, data);
-  });
-}
 
 function wpgmappity_set_modal_events(map, data) {
   // marker submit

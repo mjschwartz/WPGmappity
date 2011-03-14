@@ -287,7 +287,7 @@ else { ?>
     </th>
     <td class="wpgmappity_sample_choice">
         <!-- ZOOM CONTROL -->
-      <div class="wpgmappity_choice_row" style="border-bottom:1px solid #DFDFDF;padding-bottom:5px;padding-top:5px;">
+      <div class="wpgmappity_choice_row" style="border-bottom:1px solid #DFDFDF;padding-bottom:5px;padding-top:5px;float:none;height: 33px;">
           <div class="wpgmappity_type_choice" style="padding-top:5px;width:30%;">
             <input type="checkbox" value="Yes" id="wpgmappity_controls_zoom_on" name="wpgmappity_controls_zoom_on" />
             <label for="wpgmappity_controls_zoom_on"><strong>Zoom Control</strong></label>
@@ -308,7 +308,7 @@ else { ?>
                 <option value="TOP_LEFT">Top Left</option>
                 <option value="RIGHT_TOP">Right Top</option>
                 <option value="RIGHT_CENTER">Right Center</option>
-                <option value="TOP_BOTTOM">Right Bottom</option>
+                <option value="RIGHT_BOTTOM">Right Bottom</option>
                 <option value="BOTTOM_RIGHT">Bottom Right</option>
                 <option value="BOTTOM_CENTER">Bottom Center</option>
                 <option value="BOTTOM_LEFT">Bottom Left</option>
@@ -317,6 +317,7 @@ else { ?>
                 <option value="LEFT_BOTTOM">Left Bottom</option>
             </select>
           </div>
+          <br class="clear:both;"/>
       </div> <!-- end ZOOM CONTROL -->
         <!-- MAP TYPE -->
       <div class="wpgmappity_choice_row" style="border-bottom:1px solid #DFDFDF;padding-bottom:5px;padding-top:5px;">
@@ -325,7 +326,7 @@ else { ?>
             <label for="wpgmappity_controls_type_on"><strong>Map Type Control</strong></label>
           </div>
           <div class="wpgmappity_type_choice" style="width:30%;">
-            <label for="wpgmappity_controls_type_style">Size:</label>
+            <label for="wpgmappity_controls_type_style">Style:</label>
             <select name="wpgmappity_controls_type_style" id="wpgmappity_controls_type_style">
                 <option value="DEFAULT">Default</option>
                 <option value="DROPDOWN_MENU">Dropdown</option>
@@ -340,7 +341,7 @@ else { ?>
                 <option value="TOP_LEFT">Top Left</option>
                 <option value="RIGHT_TOP">Right Top</option>
                 <option value="RIGHT_CENTER">Right Center</option>
-                <option value="TOP_BOTTOM">Right Bottom</option>
+                <option value="RIGHT_BOTTOM">Right Bottom</option>
                 <option value="BOTTOM_RIGHT">Bottom Right</option>
                 <option value="BOTTOM_CENTER">Bottom Center</option>
                 <option value="BOTTOM_LEFT">Bottom Left</option>
@@ -349,6 +350,7 @@ else { ?>
                 <option value="LEFT_BOTTOM">Left Bottom</option>
             </select>
           </div>
+          <br class="clear:both;"/>
       </div> <!-- end MAP TYPE -->
     </td>
   </tr>
@@ -485,6 +487,7 @@ var wpgmappity_marker_flag = false;
 </script>
 <?php } ?>
 
+<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-controls.js' ) ?>"></script>
 <script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe.js' ) ?>"></script>
 
 <?php } ?>

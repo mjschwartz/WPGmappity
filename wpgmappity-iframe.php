@@ -295,17 +295,16 @@ else { ?>
           <div class="wpgmappity_type_choice" style="width:30%;">
             <label for="wpgmappity_controls_zoom_size">Size:</label>
             <select name="wpgmappity_controls_zoom_size" id="wpgmappity_controls_zoom_size">
-                <option value="DEFAULT">Default</option>
-                <option value="LARGE">Large</option>
                 <option value="SMALL">Small</option>
+                <option value="LARGE">Large</option>
             </select>
           </div>
           <div class="wpgmappity_type_choice" style="width:39%;">
             <label for="wpgmappity_controls_zoom_position">Position:</label>
             <select name="wpgmappity_controls_zoom_position" id="wpgmappity_controls_zoom_position">
+                <option value="TOP_LEFT">Top Left</option>
                 <option value="TOP_RIGHT">Top Right</option>
                 <option value="TOP_CENTER">Top Center</option>
-                <option value="TOP_LEFT">Top Left</option>
                 <option value="RIGHT_TOP">Right Top</option>
                 <option value="RIGHT_CENTER">Right Center</option>
                 <option value="RIGHT_BOTTOM">Right Bottom</option>
@@ -328,9 +327,8 @@ else { ?>
           <div class="wpgmappity_type_choice" style="width:30%;">
             <label for="wpgmappity_controls_type_style">Style:</label>
             <select name="wpgmappity_controls_type_style" id="wpgmappity_controls_type_style">
-                <option value="DEFAULT">Default</option>
-                <option value="DROPDOWN_MENU">Dropdown</option>
                 <option value="HORIZONTAL_BAR">Bar</option>
+                <option value="DROPDOWN_MENU">Dropdown</option>
             </select>
           </div>
           <div class="wpgmappity_type_choice" style="width:39%;">
@@ -487,7 +485,7 @@ var wpgmappity_marker_flag = false;
 </script>
 <?php } ?>
 
-<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-controls.js' ) ?>"></script>
+<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-controls-zoom.js' ) ?>"></script>
 <script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe.js' ) ?>"></script>
 
 <?php } ?>

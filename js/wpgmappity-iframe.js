@@ -15,7 +15,7 @@ function getUrlVars()
 
 function wpgmappity_build_sample_map(target_div, data) {
   var latlng = new google.maps.LatLng(data.center_lat, data.center_long);
-  
+
   var myOptions = {
     zoom: data.map_zoom,
     center: latlng,
@@ -33,13 +33,11 @@ function wpgmappity_build_data_container() {
   var empty_controls_object = {
     zoom : {
       active : false,
-      zoom_object : {},
-      size : '',
+      style : '',
       position : ''
     },
     type : {
       active : false,
-      type_object : {},
       style : '',
       position : ''
     }
@@ -346,10 +344,10 @@ function wpgmappity_set_center_point_event(map, data) {
     var geoCodeRequest = {
         address : jQuery("#wpgmappity_center_point").val()
     };
-    
+
     var geocoder = new google.maps.Geocoder;
     geocoder.geocode(geoCodeRequest, wpgmappity_geocode_response(map, data, 'point'));
-    
+
     //var geocoder = new GClientGeocoder(geoCodeRequest, wpgmappity_geocode_response(map, data, 'point'));
     //geocoder.getLocations(jQuery("#wpgmappity_center_point").val(), wpgmappity_geocode_response(map, data, 'point') );
     return false;

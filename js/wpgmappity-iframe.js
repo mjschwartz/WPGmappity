@@ -44,6 +44,10 @@ function wpgmappity_build_data_container() {
     scale : {
       active : false,
       position : ''
+    },
+    street : {
+      active : false,
+      position : ''
     }
   };
 

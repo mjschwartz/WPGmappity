@@ -40,6 +40,10 @@ function wpgmappity_build_data_container() {
       active : false,
       style : '',
       position : ''
+    },
+    scale : {
+      active : false,
+      position : ''
     }
   };
 

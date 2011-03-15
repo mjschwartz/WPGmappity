@@ -153,4 +153,5 @@ function wpgmappity_set_zoom_control_event(map, data) {
 function wpgmappity_set_controls_event(map, data) {
     wpgmappity_set_zoom_control_event(map, data);
     wpgmappity_set_type_control_event(map, data);
+    wpgmappity_set_scale_control_event(map, data);
 }

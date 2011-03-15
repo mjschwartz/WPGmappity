@@ -541,6 +541,7 @@ var wpgmappity_marker_flag = false;
 <script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-controls-type.js' ) ?>"></script>
 <script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-controls-scale.js' ) ?>"></script>
 <script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-controls-street.js' ) ?>"></script>
+<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-markers.js' ) ?>"></script>
 <script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe.js' ) ?>"></script>
 
 <?php } ?>

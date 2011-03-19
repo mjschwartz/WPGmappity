@@ -52,6 +52,7 @@ function wpgmappity_build_data_container() {
   };
 
   var data = {
+    'version' : '0.5',
     'map_length': 450,
     'map_height': 300,
     'map_zoom' : 3,
@@ -63,7 +64,7 @@ function wpgmappity_build_data_container() {
     'controls' : empty_controls_object,
     'map_address' : '',
     'slider_object' : '',
-    'promote' : false
+    'promote' : '0'
     };
   return data;
 }

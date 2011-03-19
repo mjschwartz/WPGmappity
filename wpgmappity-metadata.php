@@ -17,15 +17,17 @@ function wpgmappity_insert_meta_data($map) {
   }
   // JSON.stringify leaves \'s - remove them for json_decode
   $map = json_decode(stripslashes($map), true);
+  //die(var_dump($map));
   $table = $wpdb->prefix . "wpgmappity_maps";
   $query = $wpdb->prepare( "
     INSERT INTO $table
     ( map_length, map_height, map_zoom, center_lat, 
-    center_long, map_type, alignment, map_address, map_controls )
-    VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s )",
+    center_long, map_type, alignment, map_address, map_controls, promote, version )
+    VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s )",
     $map['map_length'], $map['map_height'], $map['map_zoom'],
     $map['center_lat'], $map['center_long'], $map['map_type'], 
-    $map['alignment'], $map['map_address'], $map['controls']);
+    $map['alignment'], $map['map_address'], serialize($map['controls']),
+    $map['promote'],  WPGMAPPITY_PLUGIN_CURRENT_DB  );
   $wpdb->query($query);
   $insert_id = $wpdb->insert_id;
   // markers
@@ -33,10 +35,10 @@ function wpgmappity_insert_meta_data($map) {
     $table = $wpdb->prefix . "wpgmappity_markers";
     $query = $wpdb->prepare( "
       INSERT INTO $table
-      ( map_id, marker_lat, marker_long, marker_text, marker_url )
-      VALUES ( %s, %s, %s, %s, %s )",
+      ( map_id, marker_lat, marker_long, marker_text, marker_url, marker_image )
+      VALUES ( %s, %s, %s, %s, %s, %s )",
       $insert_id, $marker['lat'], $marker['long'],
-      $marker['marker_text'], $marker['marker_url'] );
+      $marker['marker_text'], $marker['marker_url'], $marker['image'] );
 
     $wpdb->query($query);
   }

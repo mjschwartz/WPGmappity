@@ -43,13 +43,15 @@ function wpgmappity_marker_event_callback(data, map, marker, marker_id) {
 }
 
 function wpgamppity_rebuild_marker(data, map, marker, marker_id) {
-  //console.log(marker)
   marker.marker_object.setMap(null);
   var newMarker = new google.maps.Marker(
     {
       position: data.markers[marker_id].point,
       map: map
     });
+  if (data.markers[marker_id].image != 'default') {
+    newMarker.setIcon(data.markers[marker_id].image);
+  }
 
   google.maps.event.addListener(newMarker,
 				'click',

@@ -39,9 +39,37 @@ function wpgmappity_shortcode_container_div($map) {
   return $content;
 }
 
+/*
+ 
+  var latlng = new google.maps.LatLng(data.center_lat, data.center_long);
+
+  var myOptions = {
+    zoom: data.map_zoom,
+    center: latlng,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    disableDoubleClickZoom : true,
+    scrollwheel : false,
+    disableDefaultUI : true
+  };
+  var map = new google.maps.Map(document.getElementById(target_div), myOptions);
+  */
+
 function wpgmappity_shortcode_mapjs($map) {
   $content = '<script type="text/javascript">'."\n";
-  $content .= 'function wpgmapptiy_maps_loaded'.$map['id'].'() {'."\n";
+  $content .= 'function wpgmappity_maps_loaded'.$map['id'].'() {'."\n";
+  // center point
+  $content .= "var latlng = new google.maps.LatLng(".$map['center_lat'].",".$map['center_long'].");\n";
+  // inital options
+  $content .= "var options = {\n";
+  $content .= "  center : latlng,\n";
+  $content .= "  mapTypeId: google.maps.MapTypeId.".wpgmappity_shortcode_maptype($map).",\n";
+  $content .= "  zoom : ".$map['map_zoom']."\n";
+  $content .= "};\n";
+
+  $content .= 'var wpgmappitymap'.$map['id'].' = ';
+  $content .= "new google.maps.Map(document.getElementById(";
+  $content .= "'wpgmappity-map-".$map['id']."'), options);\n";
+  /*
   //div-id
   $content .= 'var wpgmappitymap'.$map['id'].' = ';
   $content .= 'new google.maps.Map2(document.getElementById("';
@@ -60,9 +88,12 @@ function wpgmappity_shortcode_mapjs($map) {
   $content .= 'if (typeof(google.maps) == undefined) {'."\n";
   $content .= 'google.load("maps", "2", {"callback" : wpgmapptiy_maps_loaded'.$map['id'].'});';
   $content .= '}'."\n";
-  $content .= 'else {'."\n";
-  $content .= 'wpgmapptiy_maps_loaded'.$map['id'].'();'."\n";
+  $content .= 'else {'."\n";*/
+  
   $content .= '}'."\n";
+  $content .= "jQuery(document).ready(function() {\n";
+  $content .= '  wpgmappity_maps_loaded'.$map['id'].'();'."\n";
+  $content .= "})\n";
   $content .= '</script>';
 
   return $content;
@@ -106,16 +137,23 @@ function wpgmappity_retrieve_markers($map_id) {
 }
 
 function wpgmappity_shortcode_maptype($map) {
-  if ($map['map_type'] == 'normal') {
-    $type = "G_NORMAL_MAP";
+  switch($map['map_type']) {
+  case 'hybrid' :
+    return 'HYBRID';
+    break;
+
+  case 'normal' :
+    return 'ROADMAP';
+    break;
+
+  case 'satellite' :
+    return 'SATELLITE';
+    break;
+
+  case 'terrain' :
+    return 'TERRAIN';
+    break;
   }
-  elseif ($map['map_type'] == 'satellite') {
-    $type = "G_SATELLITE_MAP";
-  }
-  else {
-    $type = "G_HYBRID_MAP";
-  }
-  return "wpgmappitymap".$map['id'].".setMapType(".$type.");\n";
 
 }
 

@@ -24,9 +24,8 @@ Author URI: http://schwartzlink.net
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
 if ( ! defined( 'WPGMAPPITY_PLUGIN_CURRENT_DB' ) )
-	define( 'WPGMAPPITY_PLUGIN_CURRENT_DB', '0.3' );
+	define( 'WPGMAPPITY_PLUGIN_CURRENT_DB', '0.5' );
 
 if ( ! defined( 'WPGMAPPITY_PLUGIN_BASENAME' ) )
 	define( 'WPGMAPPITY_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
@@ -72,7 +71,7 @@ function wpgmappity_delete_table() {
 
 function wpgmappity_init_table() {
    global $wpdb;
-   $wpgmappity_db_version = "0.3";
+   $wpgmappity_db_version = WPGMAPPITY_PLUGIN_CURRENT_DB;
 
    $map_table_name = $wpdb->prefix . "wpgmappity_maps";
    $marker_table_name = $wpdb->prefix . "wpgmappity_markers";
@@ -89,8 +88,10 @@ function wpgmappity_init_table() {
           center_long VARCHAR(255) NOT NULL,
           map_type VARCHAR(255) NOT NULL,
           alignment VARCHAR(255) NOT NULL,
-          map_address VARCHAR(1000),
-          map_controls VARCHAR(255),
+          map_address VARCHAR(1000) NOT NULL,
+          map_controls VARCHAR(255) NOT NULL,
+          promote VARCHAR(255) NOT NULL,
+          version VARCHAR(255) NOT NULL,
 	  UNIQUE KEY id (id)
 	);";
 
@@ -102,6 +103,7 @@ function wpgmappity_init_table() {
           marker_long VARCHAR(255) NOT NULL,
           marker_text VARCHAR(1000),
           marker_url VARCHAR(1000),
+          marker_image VARCHAR(500),
 	  UNIQUE KEY id (id)
 	);";
 
@@ -115,7 +117,7 @@ function wpgmappity_init_table() {
 
 // add / remove plug-in
 function wgmappity_settings_init() {
-  add_option('wpgmappity_options', array('gmaps_api' => '', 'save_tables' => '1'));
+  add_option('wpgmappity_options', array('save_tables' => '1'));
   wpgmappity_init_table();
 }
 
@@ -133,7 +135,7 @@ register_deactivation_hook( __FILE__, 'wgmappity_settings_destroy' );
 add_action('admin_init', 'wpgmappity_db_version');
 function wpgmappity_db_version() {
   $db_version = get_option('wpgmappity_db_version');
-  $current_db_version = '0.3';
+  $current_db_version = WPGMAPPITY_PLUGIN_CURRENT_DB;
   
   if ( (isset($db_version)) && ($db_version != $current_db_version) ) {
     require_once wpgmappity_plugin_path() . 'wpgmappity-db-upgrade.php';
@@ -142,9 +144,13 @@ function wpgmappity_db_version() {
 	wpgmappity_upgrade_db_from_1();
 	update_option("wpgmappity_db_version", $current_db_version);
 	break;
+      case '0.3':
+	wpgmappity_upgrade_db_from_3();
+	update_option("wpgmappity_db_version", $current_db_version);
+	break;
     }
   }
-}       
+}
 
 
 // WP-Gmappity plug-in settings menu

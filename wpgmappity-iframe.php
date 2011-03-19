@@ -113,6 +113,7 @@ else { ?>
 <div style="width:100%">
 	<p style="text-align:center;margin:0;padding:0">Your map preview:</p>
 <div id="wpgmappity_sample_map" style="width:450px;height:300px;margin:auto;"></div>
+<p id="wpgmappity_promote_text" style="text-align:center;font-size:70%;margin:0;"></p>
 </div>
 
 <p>Map Options:</p>
@@ -462,7 +463,23 @@ else { ?>
       </div>
     </td>
   </tr>
-
+  <!-- promote -->
+  <tr class="wpgmappity-iframe-dimension">
+    <th valign="top" class="label" scope="row">
+      <label for="wpgmappity_float">
+        <span class="wpgmappity_selector_size">
+          Support
+        </span>
+      </label>
+    </th>
+    <td class="wpgmappity_sample_choice">
+      <div class="wpgmappity_size_choice" style="width:100%;">
+	<input type="checkbox" value="Yes" id="wpgmappity_promote" name="wpgmappity_promote" />
+        <label for="wpgmappity_promote">Promote WPGmappity</label><br />
+	<p>Checking this box will place a small link under your map containing "Google Maps for WordPress by WPGMappity"</p>
+      </div>
+    </td>
+  </tr>
  
 </table>
 
@@ -542,6 +559,7 @@ var wpgmappity_marker_flag = false;
 <script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-controls-scale.js' ) ?>"></script>
 <script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-controls-street.js' ) ?>"></script>
 <script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-markers.js' ) ?>"></script>
+<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-promote.js' ) ?>"></script>
 <script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe.js' ) ?>"></script>
 
 <?php } ?>

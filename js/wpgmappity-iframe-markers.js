@@ -98,20 +98,40 @@ function wpgmappity_add_marker_to_list(marker_data, marker, data, map) {
 function wpgmapity_add_marker_to_map(data, map, response) {
   jQuery("#wpgmappity_marker_point").val('');
   jQuery("#wpgmappity_marker_point_latlng").val('');
+  var image, marker;
+
   var point = new google.maps.LatLng(response[0].geometry.location.lat(),
 				    response[0].geometry.location.lng());
-  var marker = new google.maps.Marker(
-    {
-      position: point,
-      map: map
-    }
-  );
+
+  if (jQuery("#wpgmappity_marker_default_image").is(':checked')) {
+    image = 'default';
+    marker = new google.maps.Marker(
+      {
+	position: point,
+	map: map
+      }
+    );
+  }
+
+
+  if (jQuery("#wpgmappity_marker_custom_image").is(':checked')) {
+    image = jQuery("#wpgmappity_marker_custom_image_url").val();
+
+    marker = new google.maps.Marker(
+      {
+	position: point,
+	map: map,
+	icon : image
+      }
+    );
+  }
   var marker_data = {
     'marker_object' : marker,
     'address' : response[0].formatted_address,
     'point' : point,
     'lat' : response[0].geometry.location.lat(),
-    'long' : response[0].geometry.location.lng()
+    'long' : response[0].geometry.location.lng(),
+    'image' : image
     };
   data.markers.push(marker_data);
   wpgmappity_add_marker_to_list(marker_data, marker, data, map);
@@ -124,4 +144,43 @@ function wpgmappity_geocode_from_latlng(map, data) {
       wpgmapity_add_marker_to_map(data, map, response);
     }
   };
+}
+
+
+function wpgmappity_set_marker_display_events() {
+  jQuery('input[name="wpgmappity_marker_find"]').live('change',
+    function() {
+      jQuery(this).parent().find('label').each(
+	function(index, domEle) {
+	  jQuery(domEle).addClass('grey-out');
+	});
+      var name = jQuery(this).attr('id');
+      jQuery('label[for=' + name + ']').removeClass('grey-out');
+    });
+
+   jQuery('input[name="wpgmappity_marker_image"]').live('change',
+    function() {
+      if ( jQuery("#wpgmappity_marker_default_image").is(':checked') ) {
+	jQuery('#wpgmappity_marker_custom_image_text').addClass('grey-out');
+	jQuery('#wpgmappity_marker_default_image_text').removeClass('grey-out');
+	jQuery('#wpgmappity_marker_custom_image_container').hide();
+
+	jQuery("#wpgmappity-default-img").show();
+	jQuery("#wpgmappity-custom-img").hide();
+      }
+      if ( jQuery("#wpgmappity_marker_custom_image").is(':checked') ) {
+	jQuery('#wpgmappity_marker_custom_image_text').removeClass('grey-out');
+	jQuery('#wpgmappity_marker_default_image_text').addClass('grey-out');
+	jQuery('#wpgmappity_marker_custom_image_container').show();
+      }
+      });
+  jQuery("#wpgmappity_marker_image_preview").live('click',
+    function() {
+      jQuery("#wpgmappity-custom-img").attr('src',
+	function() {
+	    return jQuery("#wpgmappity_marker_custom_image_url").val();
+	});
+      jQuery("#wpgmappity-default-img").hide();
+      jQuery("#wpgmappity-custom-img").show();
+    });
 }

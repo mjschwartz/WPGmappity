@@ -238,15 +238,63 @@ else { ?>
         <h3><a href="#add_a_marker" id="wpgamppity_add_marker_go">Add a Marker</a></h3>
       </div>
       <div id="wpgmappity_add_marker_dialog" style="display:none;">
-        <p>Enter a point that you would like marked.  You may specify the point with an address OR with a latitude / longitude pair.</p>
+        <p>Enter a point that you would like marked.  You may specify the point with an address OR with a (latitude, longitude) pair.</p>
         
         <div id="wpgmappity_marker_point_wrapper">
           <div id="wpgmappity_marker_flash"></div>
-	  <p>By Address:<br/>
-          <input type="text" name="wpgmappity_marker_point" id="wpgmappity_marker_point" value="" size="35" maxlength="120"/></p>
-	  <p>By Latitude, Longitude:<br/>
-          <input type="text" name="wpgmappity_marker_point" id="wpgmappity_marker_point_latlng" value="" size="35" maxlength="120"/></p>
-          <p style="text-align:center;"">
+        
+	  <fieldset class="marker-fields">
+	    <legend>Marker Point</legend>
+	  <p style="margin-bottom:0;margin-top:0;">
+
+	  <input type="radio" value="none" id="wpgmappity_marker_find_address" name="wpgmappity_marker_find" checked="checked" />
+	  <label for="wpgmappity_marker_find_address" id="wpgmappity_marker_find_address_text">
+	    Mark by Address
+	  </label>
+	  <br/>
+        
+	  <input type="radio" value="none" id="wpgmappity_marker_find_latlng" name="wpgmappity_marker_find"  />
+	  <label for="wpgmappity_marker_find_latlng" id="wpgmappity_marker_find_latlng_text" class="grey-out">
+	    Mark by Latitude, Longitude
+	  </label>
+	</p>
+          
+	  <p style="margin-top:0;">
+	  Point to Mark: 
+	  <input type="text" name="wpgmappity_marker_point" id="wpgmappity_marker_point" value="" size="35" maxlength="120"/>
+	  </p>
+	  </fieldset>
+
+	  <fieldset class="marker-fields">
+	    <legend>Marker Image</legend>
+	    <div id="wpgmappity-custom-image-preview">
+	      Preview:<br/>
+	      <img src="<?php echo wpgmappity_plugin_url( 'styles/red-dot.png' ) ?>" id="wpgmappity-default-img" />
+	      <img src="" id="wpgmappity-custom-img" style="display:none;" />
+	    </div>
+	  <p style="margin-bottom:0;margin-top:0;">
+
+	  <input type="radio" value="none" id="wpgmappity_marker_default_image" name="wpgmappity_marker_image" checked="checked" />
+	  <label for="wpgmappity_marker_default_image" id="wpgmappity_marker_default_image_text">
+	    Default Image
+	  </label>
+	  <br/></p>
+        <p style="margin-top:0;margin-bottom:0;">
+	  <input type="radio" value="none" id="wpgmappity_marker_custom_image" name="wpgmappity_marker_image"  />
+	  <label for="wpgmappity_marker_custom_image" id="wpgmappity_marker_custom_image_text" class="grey-out">
+	    Custom Image
+	  </label>
+	</p>
+          
+	  <p id="wpgmappity_marker_custom_image_container" style="display:none;margin-top:0;">
+	  URL to Custom Image:<br/> 
+	  <input type="text" name="wpgmappity_marker_custom_image_url" id="wpgmappity_marker_custom_image_url" value="" size="35" maxlength="120"/>
+	    <button id="wpgmappity_marker_image_preview" class="button">Preview</button>
+	  </p>
+	  </fieldset>
+
+          
+	  <p style="text-align:center;"">
 	    <button id="wpgmappity_marker_point_submit" class="button">Mark Point</button>
 	  </p>
          

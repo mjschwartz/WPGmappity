@@ -350,6 +350,7 @@ function wpgmappity_set_modal_events(map, data) {
   jQuery("#wgmappity_marker_configure_submit").click(wpgmappity_configure_marker_submit_callback(data, map));
 }
 
+
 function wgmappity_set_sample_map_events(map, wpgmappity_gmap_data) {
   wpgmappity_set_size_event(map, wpgmappity_gmap_data);
   wpgmappity_set_zoom_event(map, wpgmappity_gmap_data);
@@ -360,6 +361,7 @@ function wgmappity_set_sample_map_events(map, wpgmappity_gmap_data) {
   wpgmappity_set_controls_event(map, wpgmappity_gmap_data);
   wpgmappity_set_modal_events(map, wpgmappity_gmap_data);
   wpgmappity_set_promotion_event(map, wpgmappity_gmap_data);
+  wpgmappity_set_marker_display_events();
 }
 
 function wgmappity_set_map_submission_event(map, data) {

@@ -210,3 +210,18 @@ float:right;
 line-height:36px;
 margin-right:20px;
  }
+
+.grey-out { 
+color:#999999;
+}
+
+fieldset.marker-fields { 
+border: 1px solid #cccccc;
+padding:0 5px;
+}
+
+div#wpgmappity-custom-image-preview { 
+float:right;
+height:50px;
+width:50px;
+ }

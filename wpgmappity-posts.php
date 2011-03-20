@@ -36,23 +36,13 @@ function wpgmappity_shortcode_container_div($map) {
     $content .= '">';
   }
   $content .= '</div>';
+  if ($map['promote'] == true) {
+    $content .= '<p style="text-align: center; font-size: 70%; margin: 0pt;" id="wpgmappity_promote_text"><a target="_blank" href="http://www.wordpresspluginfu.com/wpgmappity/">Google Maps for WordPress by WPGmappity</a></p>';
+  }
+
   return $content;
 }
 
-/*
- 
-  var latlng = new google.maps.LatLng(data.center_lat, data.center_long);
-
-  var myOptions = {
-    zoom: data.map_zoom,
-    center: latlng,
-    mapTypeId: google.maps.MapTypeId.ROADMAP,
-    disableDoubleClickZoom : true,
-    scrollwheel : false,
-    disableDefaultUI : true
-  };
-  var map = new google.maps.Map(document.getElementById(target_div), myOptions);
-  */
 
 function wpgmappity_shortcode_mapjs($map) {
   $content = '<script type="text/javascript">'."\n";
@@ -70,26 +60,10 @@ function wpgmappity_shortcode_mapjs($map) {
   $content .= 'var wpgmappitymap'.$map['id'].' = ';
   $content .= "new google.maps.Map(document.getElementById(";
   $content .= "'wpgmappity-map-".$map['id']."'), options);\n";
-  /*
-  //div-id
-  $content .= 'var wpgmappitymap'.$map['id'].' = ';
-  $content .= 'new google.maps.Map2(document.getElementById("';
-  $content .= 'wpgmappity-map-'.$map['id'].'"));'."\n";
-  //center
-  $content .= 'wpgmappitymap'.$map['id'].'.setCenter(new google.maps.LatLng(';
-  $content .= $map['center_lat'].', '.$map['center_long'].'), '.$map['map_zoom'].');'."\n";
-  $content .= wpgmappity_shortcode_maptype($map);
-  if ( ($map['map_controls'] == 'small') || ($map['map_controls'] == 'large') ) {
-    $content .= wpgmappity_shortcode_controls($map);
-  }
+ 
   if (wpgmappity_has_markers($map['id']) != '0') {  
     $content .= wpgmappity_shortcode_markers_js($map['id']);
   }
-  $content .= '}'."\n";
-  $content .= 'if (typeof(google.maps) == undefined) {'."\n";
-  $content .= 'google.load("maps", "2", {"callback" : wpgmapptiy_maps_loaded'.$map['id'].'});';
-  $content .= '}'."\n";
-  $content .= 'else {'."\n";*/
   
   $content .= '}'."\n";
   $content .= "jQuery(document).ready(function() {\n";
@@ -105,19 +79,35 @@ function wpgmappity_shortcode_markers_js($map_id) {
   $i = 0;
   $content = '';
   foreach($markers as $marker) {
-    $content .= "var point$map_id_$i = new GLatLng(".$marker['marker_lat'].",".$marker['marker_long'].");\n";
-    $content .= "var marker".$map_id."_".$i." = new GMarker(point$map_id_$i);\n";
-      if ($marker['marker_text'] != '') {
-	if ($marker['marker_url'] != '') {
-	  $html = '<a href="'.$marker['marker_url'].'">'.$marker['marker_text'].'</a>';
-	}
-	else {
-	  $html = str_replace("\n", '', nl2br($marker['marker_text']));
-	}
-	$content .= "GEvent.addListener(marker".$map_id."_".$i.", 'click', function() {wpgmappitymap$map_id.openInfoWindow(point$map_id_$i, '".$html."');});\n";
-      }
+    $marker_name = "marker".$map_id."_".$i;
+    $map_name = "wpgmappitymap".$map_id;
 
-    $content .= "wpgmappitymap$map_id.addOverlay(marker".$map_id."_".$i.");\n";
+    $content .= "var point$map_id_$i = new google.maps.LatLng(";
+    $content .= $marker['marker_lat'].",".$marker['marker_long'].");\n";
+    $content .= "var $marker_name = new google.maps.Marker({\n";
+    $content .= "  position : point$map_id_$i,\n";
+    $content .= "  map : ".$map_name.",\n";
+    if ( isset($marker['marker_image']) && ($marker['marker_image'] != 'default') ) {
+      $content .= "  icon : '".$marker['marker_image']."' \n";
+    }
+    $content .= "  });\n";
+
+    if ($marker['marker_text'] != '') {
+      if ($marker['marker_url'] != '') {
+	$html = '<a href="'.$marker['marker_url'].'">'.$marker['marker_text'].'</a>';
+      }
+      else {
+	$html = str_replace("\n", '', nl2br($marker['marker_text']));
+      }
+      
+      $content .= "google.maps.event.addListener($marker_name,'click',\n";
+      $content .= "  function() {\n";
+      $content .= "    var infowindow = new google.maps.InfoWindow(\n";
+      $content .= "    {content: '$html'});\n";
+      $content .= "    infowindow.open($map_name,$marker_name);\n";
+      $content .= "    });\n";
+	
+    }
     $i += 1;
   }
   return $content;

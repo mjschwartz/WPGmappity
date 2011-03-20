@@ -427,7 +427,7 @@ else { ?>
       </div> <!-- end SCALE -->
 
         <!-- STREET -->
-      <div class="wpgmappity_choice_row" style="border-bottom:1px solid #DFDFDF;padding-bottom:5px;padding-top:5px;float:none;height: 33px;clear:both;">
+      <div class="wpgmappity_choice_row" style="padding-bottom:5px;padding-top:5px;float:none;height: 33px;clear:both;">
           <div class="wpgmappity_type_choice" style="padding-top:5px;width:30%;">
             <input type="checkbox" value="Yes" id="wpgmappity_controls_street_on" name="wpgmappity_controls_street_on" />
             <label for="wpgmappity_controls_street_on"><strong>Streetview Toggle</strong></label>

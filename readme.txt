@@ -1,11 +1,11 @@
 === Plugin Name ===
 Contributors: Matthew Schwartz
 Tags: google maps, maps, google, mapping
-Requires at least: 2.9.0
+Requires at least: 3.0
 Tested up to: 3.1
-Stable tag: 0.4.4
+Stable tag: 0.5
 
-Point, Click, Map. Build and insert Google Maps in your posts just as easily as you insert images.  All WYSIWYG: no JavaScript, no XML, no coding at all.
+Point, Click, Map. Build and insert Google Maps just as easily as you insert images.  All WYSIWYG: no JavaScript, no XML, no coding at all.
 
 == Description ==
 
@@ -20,13 +20,12 @@ Project Home, full instructions, and help: [http://www.wordpresspluginfu.com/wpg
 
 == Installation ==
 
-You will need a free Google Maps API key to display Google maps on your web site.
+WPGMappity no longer requires a Google API key to operate.  Version 3 of the Google Maps API has removed this requirement.
 
 Installation Instructions:
 
 * Upload the full directory into your wp-content/plugins directory.
 * Activate the plugin on the plugin administration page.
-* Cut and Paste your Google Map API key in the G-Mappity admin page and click “Update API Key”.
 * Thats it!
 
 More Installation Info: [http://www.wordpresspluginfu.com/wpgmappity/wpgmappity-installation/](http://www.wordpresspluginfu.com/wpgmappity/wpgmappity-installation/)
@@ -37,6 +36,21 @@ More Installation Info: [http://www.wordpresspluginfu.com/wpgmappity/wpgmappity-
 1. WPGMappity button added to the Edit Post screen.
 
 == Changelog ==
+
+=0.5=
+
+Major release.
+
+Now using version 3 of the Google Maps API.  This means all the goodies of v3 come that with it:
+
+* API key no longer needed.
+* Large speed increase.
+* Significantly smaller code footprint.
+* WPGMappity has been updated to reflect new map types and new map control types.
+
+Custom marker images.  The UI is pretty basic at this point:  When creating a marker you can specify a URL that a marker icon can be loaded from.
+
+
 
 = 0.4.4 =
 
@@ -59,6 +73,7 @@ Added a CSS rule that prevents WP 3.0 default screen from clipping maker windows
 Changed the JSON functionality to be more unicode friendly.
 
 Markers:
+
 * Added option to mark by latitude / longitude
 * Corrected a handful of bugs that were overwriting edit marker dialog
 

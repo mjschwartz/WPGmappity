@@ -64,7 +64,7 @@ function wpgmappity_build_data_container() {
     'controls' : empty_controls_object,
     'map_address' : '',
     'slider_object' : '',
-    'promote' : '0'
+    'promote' : false
     };
   return data;
 }

@@ -74,7 +74,9 @@ function wpgmappity_update_meta_data($map, $map_id) {
       'map_type' => $map['map_type'], 
       'alignment' => $map['alignment'],
       'map_address' => $map['map_address'], 
-      'map_controls' => $map['controls'] ),
+      'map_controls' => base64_encode(serialize($map['controls'])),
+      'promote' => $map['promote'], 
+      'version' => $map['version'] ),
     array( 'id' => $map_id ) );
 // delete all old markers
   $query = $wpdb->prepare( "
@@ -86,10 +88,10 @@ function wpgmappity_update_meta_data($map, $map_id) {
   foreach ($map['markers'] as $marker) {
     $query = $wpdb->prepare( "
       INSERT INTO $marker_table
-      ( map_id, marker_lat, marker_long, marker_text, marker_url )
-      VALUES ( %s, %s, %s, %s, %s )",
+      ( map_id, marker_lat, marker_long, marker_text, marker_url, marker_image )
+      VALUES ( %s, %s, %s, %s, %s, %s )",
       $map_id, $marker['lat'], $marker['long'],
-      $marker['marker_text'], $marker['marker_url'] );
+	     $marker['marker_text'], $marker['marker_url'], $marker['image'] );
     $wpdb->query($query);
   }
   return $map_id; 

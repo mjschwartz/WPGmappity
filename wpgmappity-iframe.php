@@ -572,7 +572,9 @@ function wpgmappity_import_saved_map() {
     'center_long' : '<?php echo $map_to_edit['center_long']; ?>',
     'map_type' : '<?php echo $map_to_edit['map_type']; ?>',
     'alignment' : '<?php echo $map_to_edit['alignment']; ?>',
-    'controls' : '<?php echo $map_to_edit['map_controls']; ?>',
+    'version' : '<?php echo $map_to_edit['version']; ?>',
+    'promote' : '<?php echo $map_to_edit['promote']; ?>',
+    'controls' : <?php echo json_encode(unserialize(base64_decode($map_to_edit['map_controls']))); ?>,
     'map_address' : '<?php echo $map_to_edit['map_address']; ?>'
   }
 }
@@ -666,7 +668,8 @@ function wpgmappity_marker_json_object($marker) {
   'marker_lat' : '".$marker['marker_lat']."',
   'marker_long' : '".$marker['marker_long']."',
   'marker_text' : ".$text.",
-  'marker_url' : '".$marker['marker_url']."'
+  'marker_url' : '".$marker['marker_url']."',
+  'marker_image' : '".$marker['marker_image']."',
   }";
   return $content;
 }

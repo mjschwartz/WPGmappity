@@ -63,7 +63,8 @@ function wpgmappity_shortcode_mapjs($map) {
   $content .= "var options = {\n";
   $content .= "  center : latlng,\n";
   $content .= "  mapTypeId: google.maps.MapTypeId.".wpgmappity_shortcode_maptype($map).",\n";
-  $content .= "  zoom : ".$map['map_zoom']."\n";
+  $content .= "  zoom : ".$map['map_zoom'].",\n";
+  $content .= wpgmappity_shortcode_controls(unserialize(base64_decode($map['map_controls'])));
   $content .= "};\n";
 
   $content .= 'var wpgmappitymap'.$map['id'].' = ';
@@ -157,16 +158,166 @@ function wpgmappity_shortcode_maptype($map) {
 
 }
 
-function wpgmappity_shortcode_controls($map) {
-  switch ($map['map_controls']) {
-  case 'large' :
-  $content .= 'wpgmappitymap'.$map['id'].'.addControl(new GLargeMapControl3D());'."\n";
-  break;
-  case 'small' :
-  $content .= 'wpgmappitymap'.$map['id'].'.addControl(new GSmallMapControl());'."\n";
-  break;
-  }
+function wpgmappity_shortcode_controls($controls) {
+  $content = wpgmappity_shortcode_zoom($controls['zoom']);
+  $content .= wpgmappity_shortcode_type($controls['type']);
+  $content .= wpgmappity_shortcode_scale($controls['scale']);
+  $content .= wpgmappity_shortcode_streetview($controls['street']);
+
   return $content;
+
 }
+
+function wpgmappity_shortcode_streetview($control) {
+  if ($control['active'] == false) {
+    return "  streetViewControl : false,\n";
+  }
+
+  else {
+    $content = "  streetViewControl : true,\n";
+    $content .= "  streetViewControlOptions :\n";
+    $content .= "    {\n";
+    $content .= "    position: ".wpgmappity_shortcode_control_position($control['position'])."\n";
+    $content .= "    },\n";
+    return $content;
+  }
+}
+
+function wpgmappity_shortcode_scale($control) {
+  if ($control['active'] == false) {
+    return "  scaleControl : false,\n";
+  }
+
+  else {
+    $content = "  scaleControl : true,\n";
+    $content .= "  scaleControlOptions :\n";
+    $content .= "    {\n";
+    $content .= "    position: ".wpgmappity_shortcode_control_position($control['position'])."\n";
+    $content .= "    },\n";
+    return $content;
+  }
+}
+
+function wpgmappity_shortcode_type($control) {
+  if ($control['active'] == false) {
+    return "  mapTypeControl : false,\n";
+  }
+
+  else {
+    $content = "  mapTypeControl : true,\n";
+    $content .= "  mapTypeControlOptions :\n";
+    $content .= "    {\n";
+    $content .= "    style: ".wpgmappity_shortcode_type_control_style_selection($control['style']).",\n";
+    $content .= "    position: ".wpgmappity_shortcode_control_position($control['position']).",\n";
+    $content .= "    },\n";
+    return $content;
+  }
+}
+
+function wpgmappity_shortcode_zoom($control) {
+    if ($control['active'] == false) {
+    return "  zoomControl : false,\n";
+  }
+
+  else {
+    $content = "  zoomControl : true,\n";
+    $content .= "  zoomControlOptions :\n";
+    $content .= "    {\n";
+    $content .= "    style: ".wpgamppity_shortcode_zoom_control_style_selection($control['style']).",\n";
+    $content .= "    position: ".wpgmappity_shortcode_control_position($control['position']).",\n";
+    $content .= "    },\n";
+    return $content;
+  }
+}
+
+
+function wpgmappity_shortcode_type_control_style_selection($selection) {
+  switch($selection) {
+
+  case 'DROPDOWN_MENU' :
+    return 'google.maps.MapTypeControlStyle.DROPDOWN_MENU';
+    break;
+
+  case 'HORIZONTAL_BAR' :
+    return 'google.maps.MapTypeControlStyle.HORIZONTAL_BAR';
+    break;
+  }
+
+  return false;
+}
+
+function wpgamppity_shortcode_zoom_control_style_selection($selection) {
+  switch($selection) {
+
+  case 'SMALL' :
+    return 'google.maps.ZoomControlStyle.SMALL';
+    break;
+
+  case 'LARGE' :
+    return 'google.maps.ZoomControlStyle.LARGE';
+    break;
+  }
+
+  return false;
+}
+
+/*
+ * Ensure a properly formatted position specification
+ * Usually not necessary, but don' trust user input and all that
+ */
+
+function wpgmappity_shortcode_control_position($position) {
+  switch($position) {
+  case 'TOP_RIGHT' :
+    return 'google.maps.ControlPosition.TOP_RIGHT';
+    break;
+
+  case 'TOP_CENTER' :
+    return 'google.maps.ControlPosition.TOP_CENTER';
+    break;
+
+  case 'TOP_LEFT' :
+    return 'google.maps.ControlPosition.TOP_LEFT';
+    break;
+
+  case 'RIGHT_TOP' :
+    return 'google.maps.ControlPosition.RIGHT_TOP';
+    break;
+
+  case 'RIGHT_CENTER' :
+    return 'google.maps.ControlPosition.RIGHT_CENTER';
+    break;
+
+  case 'RIGHT_BOTTOM' :
+    return 'google.maps.ControlPosition.RIGHT_BOTTOM';
+    break;
+
+  case 'BOTTOM_RIGHT' :
+    return 'google.maps.ControlPosition.BOTTOM_RIGHT';
+    break;
+
+  case 'BOTTOM_CENTER' :
+    return 'google.maps.ControlPosition.BOTTOM_CENTER';
+    break;
+
+  case 'BOTTOM_LEFT' :
+    return 'google.maps.ControlPosition.BOTTOM_LEFT';
+    break;
+
+  case 'LEFT_TOP' :
+    return 'google.maps.ControlPosition.LEFT_TOP';
+    break;
+
+  case 'LEFT_CENTER' :
+    return 'google.maps.ControlPosition.LEFT_CENTER';
+    break;
+
+  case 'LEFT_BOTTOM' :
+    return 'google.maps.ControlPosition.LEFT_BOTTOM';
+    break;
+
+  }
+}
+
 
 ?>

@@ -267,35 +267,40 @@ function wpgmappity_set_center_point_event(map, data) {
 function wpgmappity_set_add_marker_event(map, data) {
   jQuery("#wpgamppity_add_marker_go").click(function() {
     tb_show('Add a Marker',
-	    "#TB_inline?height=250&width=475&inlineId=wpgmappity_add_marker_dialog",
+	    "#TB_inline?height=350&width=475&inlineId=wpgmappity_add_marker_dialog",
 	    null);
     return false;
   });
-  jQuery("#wpgmappity_marker_point_submit").live('click', function() {
-    var geocoder;
-    // lat/long or address?
-      if ( jQuery("#wpgmappity_marker_point").val() != '' ) {
-      var message = '<div id="wgmappity_small_ajax"></div>';
-      jQuery("#wpgmappity_marker_flash").html(message);
-      var geoCodeRequest = {
-        address : jQuery("#wpgmappity_marker_point").val()
-      };
+  jQuery("#wpgmappity_marker_point_submit").live('click',
+    function() {
+      if ( jQuery("#wpgmappity_marker_point").val() == '' ) {
+	alert("Enter a point to mark");
+	return false;
+      }
+      var geocoder;
+      // lat/long or address?
+      if ( jQuery("#wpgmappity_marker_find_address").is(':checked') ) {
+	var message = '<div id="wgmappity_small_ajax"></div>';
+	jQuery("#wpgmappity_marker_flash").html(message);
+	var geoCodeRequest = {
+	  address : jQuery("#wpgmappity_marker_point").val()
+	};
 
-      geocoder = new google.maps.Geocoder;
-      geocoder.geocode(geoCodeRequest, wpgmappity_geocode_response(map, data, 'marker'));
-    }
-    else {
-      var latlng = jQuery("#wpgmappity_marker_point_latlng").val().split(',');
-      var point = new google.maps.LatLng(latlng[0],latlng[1]);
-      var geoCodeRequest = {
-        latLng : point
-      };
+	geocoder = new google.maps.Geocoder;
+	geocoder.geocode(geoCodeRequest, wpgmappity_geocode_response(map, data, 'marker'));
+      }
+       if ( jQuery("#wpgmappity_marker_find_latlng").is(':checked') ) {
+	var latlng = jQuery("#wpgmappity_marker_point").val().split(',');
+	var point = new google.maps.LatLng(latlng[0],latlng[1]);
+	var geoCodeRequest = {
+	  latLng : point
+	};
 
-      geocoder = new google.maps.Geocoder;
-      geocoder.geocode(geoCodeRequest, wpgmappity_geocode_from_latlng(map, data));
+	geocoder = new google.maps.Geocoder;
+	geocoder.geocode(geoCodeRequest, wpgmappity_geocode_from_latlng(map, data));
 
-    }
-    return false;
+      }
+      return false;
   });
   jQuery("#wpgmappity_more_marker_results_not_here").live('click', function() {
     jQuery("#wpgmappity_more_marker_results").hide();

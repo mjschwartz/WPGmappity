@@ -524,7 +524,7 @@ else { ?>
       <div class="wpgmappity_size_choice" style="width:100%;">
 	<input type="checkbox" value="Yes" id="wpgmappity_promote" name="wpgmappity_promote" />
         <label for="wpgmappity_promote">Promote WPGmappity</label><br />
-	<p>Checking this box will place a small link under your map containing "Google Maps for WordPress by WPGMappity"</p>
+	<p>Checking this box will place a small link to the WPGMappity project page under your map.  The link will open in a new window. (preview above) </p>
       </div>
     </td>
   </tr>

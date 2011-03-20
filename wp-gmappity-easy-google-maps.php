@@ -89,7 +89,7 @@ function wpgmappity_init_table() {
           map_type VARCHAR(255) NOT NULL,
           alignment VARCHAR(255) NOT NULL,
           map_address VARCHAR(1000) NOT NULL,
-          map_controls VARCHAR(255) NOT NULL,
+          map_controls VARCHAR(1000) NOT NULL,
           promote VARCHAR(255) NOT NULL,
           version VARCHAR(255) NOT NULL,
 	  UNIQUE KEY id (id)

@@ -26,7 +26,7 @@ function wpgmappity_insert_meta_data($map) {
     VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s )",
     $map['map_length'], $map['map_height'], $map['map_zoom'],
     $map['center_lat'], $map['center_long'], $map['map_type'], 
-    $map['alignment'], $map['map_address'], serialize($map['controls']),
+    $map['alignment'], $map['map_address'], base64_encode(serialize($map['controls'])),
     $map['promote'],  WPGMAPPITY_PLUGIN_CURRENT_DB  );
   $wpdb->query($query);
   $insert_id = $wpdb->insert_id;

@@ -6,7 +6,7 @@ function wpgmappity_upgrade_db_from_1() {
   if($wpdb->get_var("show tables like '$map_table_name'") == $map_table_name) {
     $map_sql = "ALTER TABLE " . $map_table_name . " 
         ADD COLUMN map_address VARCHAR(1000),
-        ADD COLUMN map_controls VARCHAR(255),
+        ADD COLUMN map_controls VARCHAR(1000),
         ADD COLUMN promote VARCHAR(255) NOT NULL,
         ADD COLUMN version VARCHAR(255) NOT NULL,
 	;";
@@ -30,6 +30,7 @@ function wpgmappity_upgrade_db_from_3() {
     $map_sql = "ALTER TABLE " . $map_table_name . "
          ADD COLUMN promote VARCHAR(255) NOT NULL,
          ADD COLUMN version VARCHAR(255) NOT NULL,
+         MODIFY map_controls varchar(1000)
 	;";
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
     dbDelta($map_sql);

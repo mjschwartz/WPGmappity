@@ -1,12 +1,30 @@
 <?php
 
-function wpgmappity_theme_scripts() {
+
+function wpgmappity_load_theme_scripts() {
+
   wp_enqueue_script( 'jquery' );
   $gmap_url = 'http://maps.google.com/maps/api/js?sensor=false';
   wp_enqueue_script( 'gmap_loader', $gmap_url );
 }
 
-add_action( 'wp_print_scripts', 'wpgmappity_theme_scripts' );
+add_action( 'wp_print_scripts', 'wpgmappity_theme_public_scripts' );
+add_action( 'admin_enqueue_scripts', 'wpgmappity_theme_scripts' );
+
+
+
+function wpgmappity_theme_public_scripts() {
+
+  if (wpgamppity_map_present_in_post()) {
+    wpgmappity_load_theme_scripts();
+  }
+}
+
+function wpgamppity_map_present_in_post() {
+
+  return true;
+}
+
 
 add_shortcode('wpgmappity', 'wpgmappity_shortcode_handle');
 

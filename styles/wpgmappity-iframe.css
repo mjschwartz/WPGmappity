@@ -225,3 +225,68 @@ float:right;
 height:50px;
 width:50px;
  }
+
+/* Routes */
+
+ul#wpgmappity-destinationList li { 
+margin-bottom:0;
+ }
+
+input.wpgmappity-destinationSearch { 
+border:1px solid #CCCCCC;
+color:#516064;
+font-size:12px;
+margin-bottom:5px;
+padding:3px;
+width:280px;
+float:left;
+margin-top:3px;
+}
+
+div.wpgmappity-destinationNumber { 
+font-weight:bold;
+cursor:move;
+display:inline;
+width:15px; 
+height:12px;
+float:left;
+border: 1px solid #ccc;
+background-color:#dedede;
+margin:5px;
+padding:0px 3px 5px;
+}
+
+div.wpgmappity-destinationRemove, div.wpgmappity-destinationRemoveHot {
+background-repeat: no-repeat;
+width:20px; 
+height:17px;
+float:left;
+margin:8px 5px;
+cursor:pointer;
+ }
+
+div.wpgmappity-destinationRemoveOff {  
+background-image:url("removegrey.png");
+                                      }
+
+div.wpgmappity-destinationRemoveHot { 
+background-image:url("removeactive.png");
+                                      }
+
+div.wpgmappity-destinationNumber p { 
+text-align:center;
+margin-top:0;
+ }
+
+
+ul#wpgmappity-destination_list { 
+ }
+
+p#wpgmappity-destinationAdd { 
+text-align:center;
+margin: 5px auto;
+}
+
+p#wpgmappity-destinationAdd a { 
+font-size:12px;
+}

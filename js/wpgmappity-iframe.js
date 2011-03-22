@@ -51,6 +51,13 @@ function wpgmappity_build_data_container() {
     }
   };
 
+  var routeContainer = {
+    'points' : [],
+    'color' : '',
+    'service' : new google.maps.DirectionsService(),
+    'display' : new google.maps.DirectionsRenderer()
+  };
+
   var data = {
     'version' : '0.5',
     'map_length': 450,
@@ -64,7 +71,13 @@ function wpgmappity_build_data_container() {
     'controls' : empty_controls_object,
     'map_address' : '',
     'slider_object' : '',
-    'promote' : '0'
+    'promote' : '0',
+    'route' : routeContainer,
+    'listeners' : {
+      'zoom' : {},
+      'center' : {}
+      }
+
     };
   return data;
 }
@@ -174,6 +187,7 @@ function wpgmappity_set_zoom_event(map, data) {
 	}
       }
   });
+  
 }
 
 function wpgmappity_set_center(map,data) {
@@ -369,6 +383,7 @@ function wgmappity_set_sample_map_events(map, wpgmappity_gmap_data) {
   wpgmappity_set_controls_event(map, wpgmappity_gmap_data);
   wpgmappity_set_modal_events(map, wpgmappity_gmap_data);
   wpgmappity_set_promotion_event(map, wpgmappity_gmap_data);
+  wpgmappity_set_route_event(map, wpgmappity_gmap_data);
 }
 
 function wgmappity_set_map_submission_event(map, data) {

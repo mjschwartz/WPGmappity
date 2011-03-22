@@ -322,6 +322,51 @@ else { ?>
     </td>
   </tr>
 
+  <!-- ROUTE -->
+  <tr class="wpgmappity-iframe-dimension">
+    <th valign="top" class="label" scope="row">
+      <label for="wpgmappity_float">
+        <span class="wpgmappity_selector_size">
+          Route
+        </span>
+      </label>
+    </th>
+    <td class="wpgmappity_sample_choice">
+	<p>Add a route to your map.  Enter at least two addresses below to trace the route. </p>
+      <div class="wpgmappity_size_choice" style="width:75%;">
+	<p style="font-size:80;text-align:center;color:#a60000" id="wpgmappity-route-flash"></p>
+	    <ul id="wpgmappity-destinationList">
+	      <li>
+		<div class="wpgmappity-destinationNumber"><p>1</p></div>
+		<input type="text" size="45" class="wpgmappity-destinationSearch" />
+		<div class="wpgmappity-destinationRemove wpgmappity-destinationRemoveOff"></div>
+		<br style="clear:both;" />
+		<div class="wpgmappity-destinationDistances"></div>
+	      </li>
+	      <li>
+		<div class="wpgmappity-destinationNumber"><p>2</p></div>
+		<input type="text" size="45" class="wpgmappity-destinationSearch"  />
+		<div class="wpgmappity-destinationRemove wpgmappity-destinationRemoveOff"></div>
+		<br style="clear:both;" />
+		<div class="wpgmappity-destinationDistances"></div>
+	      </li>
+	    </ul>
+	    <p id="wpgmappity-destinationAdd"><a href="#">Add another destination</a></p>
+	  </div>
+      <div class="wpgmappity_size_choice" style="width:25%;">
+
+	    <p style="margin-top:20px;">
+	      <button id="wpgmappity-destination_submit" class="button">Plot Route</button>
+	    </p>
+
+	    <p style="margin-top:10px;">
+	      <button id="wpgmappity-destination_remove" class="button">Remove Route</button>
+	    </p>
+	    
+      </div>
+    </td>
+  </tr>
+
   <!-- controls -->
   <tr class="wpgmappity-iframe-dimension">
     <th valign="top" class="label" scope="row">
@@ -611,7 +656,7 @@ function wpgmappity_marker_flag() {
 <script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-controls-street.js' ) ?>"></script>
 <script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-markers.js' ) ?>"></script>
 <script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-promote.js' ) ?>"></script>
-<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-jquery-fix.js' ) ?>"></script>
+<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-routes.js' ) ?>"></script>
 <script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe.js' ) ?>"></script>
 
 <?php } ?>

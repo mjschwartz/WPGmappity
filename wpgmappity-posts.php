@@ -64,6 +64,8 @@ function wpgmappity_shortcode_mapjs($map) {
   if (wpgmappity_has_markers($map['id']) != '0') {  
     $content .= wpgmappity_shortcode_markers_js($map['id']);
   }
+  $map_name = 'wpgmappitymap'.$map['id'];
+  $content .= wpgmappity_shorcode_route(unserialize(base64_decode($map['route'])),$map_name);
   
   $content .= '}'."\n";
   /* Crazy IE 7 bug - wrapping in document.ready blows up the script if adminbar is present
@@ -314,5 +316,48 @@ function wpgmappity_shortcode_control_position($position) {
   }
 }
 
+function wpgmappity_shorcode_route($route, $map_name) {
+  // no route
+  if ($route['active'] == '0') {
+    return '';
+  }
 
+  else {
+    $content = "var service = new google.maps.DirectionsService()\n";
+    $content .= "var display = new google.maps.DirectionsRenderer()\n";
+    $content .= "var terms = ".json_encode($route['points']).";\n";
+    $content .= "display.setMap($map_name);
+
+      if (terms.length > 2 ) {
+	var points = terms.slice(1, -1);
+	var waypoints = [];
+	for (var x in points) {
+	  var y = {
+	    'location' : points[x],
+	    'stopover' : true
+	  };
+	  waypoints.push(y);
+	}
+      }
+      else {
+	var waypoints = [];
+      }
+      var origin = terms.splice(0,1).join('');
+      var destination = terms.splice(-1,1).join('');
+      var request = {
+	origin: origin,
+	destination: destination,
+	waypoints : waypoints,
+	travelMode: google.maps.DirectionsTravelMode.DRIVING
+      };\n";
+    $content .= "service.route(request,
+	function(result, status) {
+	  if (status == google.maps.DirectionsStatus.OK) {
+            display.setDirections(result);
+          }
+        });";
+    return $content;
+  }
+
+}
 ?>

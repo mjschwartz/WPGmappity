@@ -19,9 +19,10 @@ function wpgmappity_set_route_event(map, data) {
       var terms = [];
       jQuery("#wpgmappity-destinationList").find("li").each(
 	function(index) {
-	  terms.push(jQuery(this).find("input.wpgmappity-destinationSearch").val());
+	  var term = jQuery(this).find("input.wpgmappity-destinationSearch").val();
+	  terms.push(term);
+	  data.route.points.push(term);
 	});
-
       return terms;
     },
 
@@ -63,11 +64,11 @@ function wpgmappity_set_route_event(map, data) {
     },
 
     updateMapZoom : function() {
-      data.zoom = map.getZoom();
-      var position = (data.zoom + 1) * 20;
+      data.map_zoom = map.getZoom();
+      var position = (data.map_zoom + 1) * 20;
 
       jQuery('#wpgmappity_zoom_slider').slider( "option", "value", position );
-      jQuery("#wpgmappity_zoom_slider_status").html(data.zoom);
+      jQuery("#wpgmappity_zoom_slider_status").html(data.map_zoom);
 
       google.maps.event.removeListener(data.listeners.zoom);
 
@@ -86,7 +87,7 @@ function wpgmappity_set_route_event(map, data) {
       var geocoder = new google.maps.Geocoder;
       geocoder.geocode(geoCodeRequest,
 		       function(result, status) {
-			 if (status == 'OK') {
+			 if (status === 'OK') {
 			   var center_address = result[0].formatted_address;
 			   data.map_address = center_address;
 			   jQuery("#wpgmappity_center_point").val(center_address);
@@ -101,6 +102,7 @@ function wpgmappity_set_route_event(map, data) {
       jQuery("#wpgmappity-destination_remove").click(
 	function(){
 	  data.route.display.setMap(null);
+	  data.route.active = '0';
 	  return false;
 	});
     },
@@ -115,7 +117,7 @@ function wpgmappity_set_route_event(map, data) {
 
     search : function(data, map) {
       jQuery("#wpgmappity-route-flash").html('');
-      var terms = events.updateTerms();
+      var terms = events.updateTerms(data);
 
       data.route.display.setMap(map);
 
@@ -154,7 +156,7 @@ function wpgmappity_set_route_event(map, data) {
 	      events.updateMapCenter();
 	    });
 
-
+	    data.route.active = '1';
 	    data.route.display.setDirections(result);
 	  }
 	  else {

@@ -22,11 +22,12 @@ function wpgmappity_insert_meta_data($map) {
   $query = $wpdb->prepare( "
     INSERT INTO $table
     ( map_length, map_height, map_zoom, center_lat, 
-    center_long, map_type, alignment, map_address, map_controls, promote, version )
-    VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s )",
+    center_long, map_type, alignment, map_address, map_controls, route, promote, version )
+    VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s )",
     $map['map_length'], $map['map_height'], $map['map_zoom'],
     $map['center_lat'], $map['center_long'], $map['map_type'], 
     $map['alignment'], $map['map_address'], base64_encode(serialize($map['controls'])),
+    base64_encode(serialize($map['route'])),
     $map['promote'],  WPGMAPPITY_PLUGIN_CURRENT_DB  );
   $wpdb->query($query);
   $insert_id = $wpdb->insert_id;
@@ -65,7 +66,7 @@ function wpgmappity_update_meta_data($map, $map_id) {
   $map = json_decode(stripslashes($map), true);
   $table = $wpdb->prefix . "wpgmappity_maps";
   $marker_table = $wpdb->prefix . "wpgmappity_markers";
-  //die(var_dump($map['map_address']));
+  //die(var_dump($map));
   $wpdb->update( $table, array( 'map_length' => $map['map_length'], 
       'map_height' => $map['map_height'], 
       'map_zoom' => $map['map_zoom'], 

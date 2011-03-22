@@ -52,6 +52,7 @@ function wpgmappity_build_data_container() {
   };
 
   var routeContainer = {
+    'active' : '0',
     'points' : [],
     'color' : '',
     'service' : new google.maps.DirectionsService(),
@@ -187,7 +188,7 @@ function wpgmappity_set_zoom_event(map, data) {
 	}
       }
   });
-  
+
 }
 
 function wpgmappity_set_center(map,data) {
@@ -388,15 +389,20 @@ function wgmappity_set_sample_map_events(map, wpgmappity_gmap_data) {
 
 function wgmappity_set_map_submission_event(map, data) {
 
-  jQuery("#wpgmappity-create").submit(function() {
-    // get rid of marker and point data specific to this map
-    if (data.markers.length > 0) {
-      for (x in data.markers) {
-	data.markers[x].point = '';
-	data.markers[x].marker_object = '';
+  jQuery("#wpgmappity-create").submit(
+    function() {
+      // get rid of marker and point data specific to this map
+      if (data.markers.length > 0) {
+	for (x in data.markers) {
+	  data.markers[x].point = '';
+	  data.markers[x].marker_object = '';
+	}
       }
-    }
-    data.controls_object = '';
+      data.controls_object = '';
+      data.route.display = null;
+      data.route.service = null;
+      data.listeners = null;
+
     jQuery("#wpgmappity-submit-info").val(JSON.stringify(data));
 
     //return false;

@@ -92,6 +92,7 @@ function wpgmappity_init_table() {
           map_controls VARCHAR(1000) NOT NULL,
           promote VARCHAR(255) NOT NULL,
           version VARCHAR(255) NOT NULL,
+          route VARCHAR(2000) NOT NULL,
 	  UNIQUE KEY id (id)
 	);";
 

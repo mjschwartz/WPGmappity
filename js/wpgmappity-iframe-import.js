@@ -148,6 +148,26 @@ function wpgmappity_import_size(map, data, imported_map) {
     wpgmappity_update_map_size(map, data);
 }
 
+function wpgmappity_import_route(map, data, imported_map) {
+  data.route.points = imported_map.route.points;
+
+  var events = wpgmappity_set_route_container(map, data);
+  if (data.route.points.length > 2) {
+    var length = data.route.points.length;
+    for (var i = 3;i <= length;i++) {
+      jQuery("#wpgmappity-destinationAdd").trigger('click');
+    }
+  }
+
+  var point_containers = jQuery("#wpgmappity-destinationList").find("li");
+  for (var x in data.route.points) {
+    jQuery(point_containers[x]).find("input.wpgmappity-destinationSearch").val(data.route.points[x]);
+  }
+
+  events.search(data,map);
+
+}
+
 
 function wpgmappity_set_up_map(map_id, map, data) {
   var imported_map = wpgmappity_import_saved_map();
@@ -161,4 +181,5 @@ function wpgmappity_set_up_map(map_id, map, data) {
   if (wpgmappity_marker_flag() == true) {
     wpgmappity_import_build_markers(map, data);
   }
+  wpgmappity_import_route(map,data,imported_map);
 }

@@ -4,8 +4,6 @@ function wpgmappity_theme_scripts() {
   wp_enqueue_script( 'jquery' );
   $gmap_url = 'http://maps.google.com/maps/api/js?sensor=false';
   wp_enqueue_script( 'gmap_loader', $gmap_url );
-  
-  wp_enqueue_script( 'gmap-admin-functions', wpgmappity_plugin_url( 'js/wpgmappity-gmap.js' ),array( 'gmap_loader' ) );
 }
 
 add_action( 'wp_print_scripts', 'wpgmappity_theme_scripts' );
@@ -22,10 +20,9 @@ function wpgmappity_shortcode_handle($attr) {
   return $content;
 }
 
-function wpgmappity_shortcode_container_div($map) {
-  $content = '<div class="wpgmappity_container" id="wpgmappity-map-'.$map['id'].'"';
-  $content .= ' style="width:'.$map['map_length'].'px;';
-  $content .= 'height:'.$map['map_height'].'px;';
+function wpgmappity_shortcode_float($map) {
+  $content = '';  
+
   if ( ($map['alignment'] == 'right') || ($map['alignment'] == 'left') ) {
     $content .= 'float:'.$map['alignment'].';">';
   }
@@ -35,10 +32,24 @@ function wpgmappity_shortcode_container_div($map) {
   else {
     $content .= '">';
   }
+
+  return $content;
+
+}
+
+function wpgmappity_shortcode_container_div($map) {
+  $content = '<div style="width:'.$map['map_length'].'px;';
+  $content .=  wpgmappity_shortcode_float($map);
+
+  $content .= '<div class="wpgmappity_container" id="wpgmappity-map-'.$map['id'].'"';
+  $content .= ' style="width:'.$map['map_length'].'px;';
+  $content .= 'height:'.$map['map_height'].'px;';
+  $content .=  wpgmappity_shortcode_float($map);
   $content .= '</div>';
   if ($map['promote'] == true) {
     $content .= '<p style="text-align: center; font-size: 70%; margin: 0pt;" id="wpgmappity_promote_text"><a target="_blank" href="http://www.wordpresspluginfu.com/wpgmappity/">Google Maps for WordPress by WPGmappity</a></p>';
   }
+  $content .= '</div>';
 
   return $content;
 }
@@ -160,6 +171,7 @@ function wpgmappity_shortcode_controls($controls) {
   $content .= wpgmappity_shortcode_type($controls['type']);
   $content .= wpgmappity_shortcode_scale($controls['scale']);
   $content .= wpgmappity_shortcode_streetview($controls['street']);
+  $content .= '  panControl : false,';
 
   return $content;
 

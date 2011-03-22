@@ -76,6 +76,7 @@ function wpgmappity_update_meta_data($map, $map_id) {
       'alignment' => $map['alignment'],
       'map_address' => $map['map_address'], 
       'map_controls' => base64_encode(serialize($map['controls'])),
+      'route' => base64_encode(serialize($map['route'])),
       'promote' => $map['promote'], 
       'version' => $map['version'] ),
     array( 'id' => $map_id ) );

@@ -37,16 +37,10 @@ function wpgmappity_upload() {
 // Config page
 function wpgmappity_conf() {
 	$settings = get_option('wpgmappity_options');
-	//die(var_dump($settings));
 ?>
 <?php if ( !empty($_POST['submit-api'] ) ) {
 	if ( function_exists('current_user_can') && !current_user_can('manage_options') )
 		die(__('NO. Bad Dog. Sit.'));
-	if (isset($_POST['gmaps_api'])) {
-		check_admin_referer('wpgmappity-update_' . $settings);
-		$settings['gmaps_api'] = $_POST['gmaps_api'];
-		update_option('wpgmappity_options', $settings);
-	}
 ?>
 <div id="message" class="updated fade"><p><strong>Options saved</strong></p></div>
 <?php }
@@ -71,9 +65,9 @@ function wpgmappity_conf() {
 		wp_nonce_field('wpgmappity-save_tables_' . $settings);
 	?>
 	
-	<p>WP G-Mappity stores information about its maps in your blog's database.  Depending on the setting below, if the plugin is uninstalled that information can either be deleted permenantly, or retained in case you reinstall this plugin.</p>
+	<p>WPGMappity stores information about its maps in your blog's database.  Depending on the setting below, if the plugin is uninstalled that information can either be deleted permenantly, or retained in case you reinstall this plugin.</p>
 	<p>If you are sure that you will never use the plugin again, or if you are sure you no longer need the maps you have created its probably best to select "no" to clean up the clutter.  If you want to retain the information leave "yes" selected.</p>
-	<p><strong>Save map information in your database if WP G-Mappity is uninstalled:</strong><br />
+	<p><strong>Save map information in your database if WPGMMappity is uninstalled:</strong><br />
 	<label for="wpgmappity-save-tables-yes">Yes:</label> <input id="wpgmappity-save-tables-yes" name="wpgmappity-save-tables" type="radio" value="1" 
 	<?php if ($settings['save_tables'] == '1') {
 		echo ' checked="checked"';

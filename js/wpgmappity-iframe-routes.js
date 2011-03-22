@@ -1,5 +1,16 @@
 
-function wpgmappity_set_route_event(map, data) {
+function wpgmappity_set_route_event(map,data) {
+
+  var events = wpgmappity_set_route_container(map, data);
+  events.addDestinationEvent();
+  events.removeDestinationEvent();
+  events.searchEvent(data,map);
+  events.removeEvent(data,map);
+
+}
+
+
+function wpgmappity_set_route_container(map, data) {
 
 
   var events = {
@@ -17,6 +28,7 @@ function wpgmappity_set_route_event(map, data) {
 
     updateTerms : function() {
       var terms = [];
+      data.route.points = [];
       jQuery("#wpgmappity-destinationList").find("li").each(
 	function(index) {
 	  var term = jQuery(this).find("input.wpgmappity-destinationSearch").val();
@@ -167,8 +179,5 @@ function wpgmappity_set_route_event(map, data) {
 
     };
 
-  events.addDestinationEvent();
-  events.removeDestinationEvent();
-  events.searchEvent(data,map);
-  events.removeEvent(data,map);
+  return events;
 }

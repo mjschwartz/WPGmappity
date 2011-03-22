@@ -599,7 +599,6 @@ else { ?>
 </form>
 
 <?php
-
 if ($_GET['modify'] == 'edit') {
   $map_to_edit = wgmappity_get_meta_data($map_id);
   $map_to_edit = $map_to_edit[0];
@@ -617,6 +616,7 @@ function wpgmappity_import_saved_map() {
     'version' : '<?php echo $map_to_edit['version']; ?>',
     'promote' : '<?php echo $map_to_edit['promote']; ?>',
     'controls' : <?php echo json_encode(unserialize(base64_decode($map_to_edit['map_controls']))); ?>,
+    'route' : <?php echo json_encode(unserialize(base64_decode($map_to_edit['route']))); ?>,
     'map_address' : '<?php echo $map_to_edit['map_address']; ?>'
   }
 }

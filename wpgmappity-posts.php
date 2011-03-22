@@ -53,8 +53,8 @@ function wpgmappity_shortcode_mapjs($map) {
   $content .= "var options = {\n";
   $content .= "  center : latlng,\n";
   $content .= "  mapTypeId: google.maps.MapTypeId.".wpgmappity_shortcode_maptype($map).",\n";
-  $content .= "  zoom : ".$map['map_zoom'].",\n";
   $content .= wpgmappity_shortcode_controls(unserialize(base64_decode($map['map_controls'])));
+  $content .= "  zoom : ".$map['map_zoom']."\n";
   $content .= "};\n";
 
   $content .= 'var wpgmappitymap'.$map['id'].' = ';
@@ -66,9 +66,13 @@ function wpgmappity_shortcode_mapjs($map) {
   }
   
   $content .= '}'."\n";
+  /* Crazy IE 7 bug - wrapping in document.ready blows up the script if adminbar is present
+   * work around for the time being
   $content .= "jQuery(document).ready(function() {\n";
   $content .= '  wpgmappity_maps_loaded'.$map['id'].'();'."\n";
-  $content .= "})\n";
+  $content .= "});\n";
+  */
+  $content .= 'wpgmappity_maps_loaded'.$map['id'].'();'."\n";
   $content .= '</script>';
 
   return $content;
@@ -83,13 +87,13 @@ function wpgmappity_shortcode_markers_js($map_id) {
     $map_name = "wpgmappitymap".$map_id;
 
     $content .= "var point$map_id_$i = new google.maps.LatLng(";
-    $content .= $marker['marker_lat'].",".$marker['marker_long'].");\n";
+    $content .= $marker['marker_lat'].",".$marker['marker_long'].");\n"; 
     $content .= "var $marker_name = new google.maps.Marker({\n";
-    $content .= "  position : point$map_id_$i,\n";
-    $content .= "  map : ".$map_name.",\n";
     if ( isset($marker['marker_image']) && ($marker['marker_image'] != 'default') ) {
-      $content .= "  icon : '".$marker['marker_image']."' \n";
+      $content .= "  icon : '".$marker['marker_image']."',\n";
     }
+    $content .= "  position : point$map_id_$i,\n";
+    $content .= "  map : ".$map_name."\n";
     $content .= "  });\n";
 
     if ($marker['marker_text'] != '') {
@@ -98,6 +102,7 @@ function wpgmappity_shortcode_markers_js($map_id) {
       }
       else {
 	$html = str_replace("\n", '', nl2br($marker['marker_text']));
+	$html = addslashes($html);
       }
       
       $content .= "google.maps.event.addListener($marker_name,'click',\n";
@@ -198,7 +203,7 @@ function wpgmappity_shortcode_type($control) {
     $content .= "  mapTypeControlOptions :\n";
     $content .= "    {\n";
     $content .= "    style: ".wpgmappity_shortcode_type_control_style_selection($control['style']).",\n";
-    $content .= "    position: ".wpgmappity_shortcode_control_position($control['position']).",\n";
+    $content .= "    position: ".wpgmappity_shortcode_control_position($control['position'])."\n";
     $content .= "    },\n";
     return $content;
   }
@@ -214,7 +219,7 @@ function wpgmappity_shortcode_zoom($control) {
     $content .= "  zoomControlOptions :\n";
     $content .= "    {\n";
     $content .= "    style: ".wpgamppity_shortcode_zoom_control_style_selection($control['style']).",\n";
-    $content .= "    position: ".wpgmappity_shortcode_control_position($control['position']).",\n";
+    $content .= "    position: ".wpgmappity_shortcode_control_position($control['position'])."\n";
     $content .= "    },\n";
     return $content;
   }

@@ -2,9 +2,9 @@
 
 function getUrlVars()
 {
-    var vars = [], hash;
+  var vars = [], hash, i;
     var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-    for(var i = 0; i < hashes.length; i++)
+    for(i = 0; i < hashes.length; i++)
     {
         hash = hashes[i].split('=');
         vars.push(hash[0]);
@@ -64,7 +64,7 @@ function wpgmappity_build_data_container() {
     'controls' : empty_controls_object,
     'map_address' : '',
     'slider_object' : '',
-    'promote' : false
+    'promote' : '0'
     };
   return data;
 }
@@ -111,11 +111,12 @@ function wpgmappity_set_size_event(map, data) {
 	break;
 	}
   });
-  jQuery("#wpgmapity_custom_size_submit").live("click", function(){
-    var height = parseInt(jQuery("#wpgmappity_custom_size_height").val());
-    var length = parseInt(jQuery("#wpgmappity_custom_size_length").val());
-    var error_type = false;
-    var error_direction = false;
+  jQuery("#wpgmapity_custom_size_submit").live("click",
+    function(){
+      var height = parseInt(jQuery("#wpgmappity_custom_size_height").val(),10);
+      var length = parseInt(jQuery("#wpgmappity_custom_size_length").val(),10);
+      var error_type = false;
+      var error_direction = false;
 
     if ( (height < 300) || (isNaN(height)) )
     {
@@ -164,11 +165,11 @@ function wpgmappity_set_zoom_event(map, data) {
     value: 60,
     slide: function(e,ui){
       var position = jQuery('#wpgmappity_zoom_slider').slider("value");
-      position = parseInt( (position / 20) ) + 1;
+      position = parseInt( (position / 20),10 ) + 1;
       jQuery("#wpgmappity_zoom_slider_status").html(position);
-      if (map.getZoom() != position) {
+      if (map.getZoom() !== position) {
 	map.setZoom(position);
-        wpgmappity_post_resize(map, data)
+        wpgmappity_post_resize(map, data);
 	data.map_zoom = position;
 	}
       }
@@ -185,38 +186,38 @@ function wpgmappity_set_center(map,data) {
 function wpgmappity_geocode_response(map, data, type) {
   return function(response, status) {
     //console.log(response)
-    if (status == 'OK') {
+    if (status === 'OK') {
       // multiple options
       if (response.length > 1) {
 	var text = '';
 	for (x in response) {
 	  text += '<p><a class="wpgmappity_more_';
-	  if (type == 'point') {
+	  if (type === 'point') {
 	    text += 'center_link" href="#new_point">';
 	    }
-	  else if (type == 'marker') {
+	  else if (type === 'marker') {
 	    text += 'marker_link" href="#new_marker">';
 	    }
 	  text += response[x].formatted_address + "</a></p>";
 	  }
-	if (type == 'point') {
+	if (type === 'point') {
 	  jQuery("#wpgmappity_more_center_results_contents").html(text);
 	  tb_show('Did you mean?',"#TB_inline?height=300&width=400&inlineId=wpgmappity_more_center_results", null);
 	  }
-	else if (type == 'marker') {
+	else if (type === 'marker') {
 	  jQuery("#wpgmappity_more_marker_results_contents").html(text);
 	  jQuery("#wpgmappity_more_marker_results").show();
 	  }
 	}
       // direct hit
       else {
-	if (type == 'point') {
+	if (type === 'point') {
 	  data.center_lat = response[0].geometry.location.lat();
 	  data.center_long = response[0].geometry.location.lng();
 	  wpgmappity_set_center(map,data);
 	  data.map_address = response[0].formatted_address;
 	  }
-	else if (type == 'marker') {
+	else if (type === 'marker') {
 	  tb_remove();
 	  wpgmapity_add_marker_to_map(data, map, response);
 	  }
@@ -225,7 +226,7 @@ function wpgmappity_geocode_response(map, data, type) {
     else {
       var div;
       var message = "<p><span class='wpgamapptiy_warning'>Geocoding failed. Please try again.</span></p>";
-      if (type == 'center') {
+      if (type === 'center') {
 	div = 'center_point';
 	}
       else {
@@ -358,6 +359,7 @@ function wpgmappity_set_modal_events(map, data) {
 
 
 function wgmappity_set_sample_map_events(map, wpgmappity_gmap_data) {
+  wpgmappity_set_marker_display_events();
   wpgmappity_set_size_event(map, wpgmappity_gmap_data);
   wpgmappity_set_zoom_event(map, wpgmappity_gmap_data);
   wpgmappity_set_center_point_event(map, wpgmappity_gmap_data);
@@ -367,7 +369,6 @@ function wgmappity_set_sample_map_events(map, wpgmappity_gmap_data) {
   wpgmappity_set_controls_event(map, wpgmappity_gmap_data);
   wpgmappity_set_modal_events(map, wpgmappity_gmap_data);
   wpgmappity_set_promotion_event(map, wpgmappity_gmap_data);
-  wpgmappity_set_marker_display_events();
 }
 
 function wgmappity_set_map_submission_event(map, data) {
@@ -399,4 +400,4 @@ function wpgmappity_iframe_js() {
 }
 
 // google.setOnLoadCallback(wpgmappity_iframe_js);
-window.onload = function() { wpgmappity_iframe_js() };
+window.onload = function() { wpgmappity_iframe_js(); };

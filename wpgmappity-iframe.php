@@ -254,7 +254,7 @@ else { ?>
 	  <br/>
         
 	  <input type="radio" value="none" id="wpgmappity_marker_find_latlng" name="wpgmappity_marker_find"  />
-	  <label for="wpgmappity_marker_find_latlng" id="wpgmappity_marker_find_latlng_text" class="grey-out">
+	  <label for="wpgmappity_marker_find_latlng" id="wpgmappity_marker_find_latlng_text">
 	    Mark by Latitude, Longitude
 	  </label>
 	</p>
@@ -267,11 +267,6 @@ else { ?>
 
 	  <fieldset class="marker-fields">
 	    <legend>Marker Image</legend>
-	    <div id="wpgmappity-custom-image-preview">
-	      Preview:<br/>
-	      <img src="<?php echo wpgmappity_plugin_url( 'styles/red-dot.png' ) ?>" id="wpgmappity-default-img" />
-	      <img src="" id="wpgmappity-custom-img" style="display:none;" />
-	    </div>
 	  <p style="margin-bottom:0;margin-top:0;">
 
 	  <input type="radio" value="none" id="wpgmappity_marker_default_image" name="wpgmappity_marker_image" checked="checked" />
@@ -281,20 +276,22 @@ else { ?>
 	  <br/></p>
         <p style="margin-top:0;margin-bottom:0;">
 	  <input type="radio" value="none" id="wpgmappity_marker_custom_image" name="wpgmappity_marker_image"  />
-	  <label for="wpgmappity_marker_custom_image" id="wpgmappity_marker_custom_image_text" class="grey-out">
+	  <label for="wpgmappity_marker_custom_image" id="wpgmappity_marker_custom_image_text">
 	    Custom Image
 	  </label>
 	</p>
           
-	  <p id="wpgmappity_marker_custom_image_container" style="display:none;margin-top:0;">
+	  <p id="wpgmappity_marker_custom_image_container" style="margin-top:0;">
 	  URL to Custom Image:<br/> 
 	  <input type="text" name="wpgmappity_marker_custom_image_url" id="wpgmappity_marker_custom_image_url" value="" size="35" maxlength="120"/>
+	  <!--
 	    <button id="wpgmappity_marker_image_preview" class="button">Preview</button>
+	    -->
 	  </p>
 	  </fieldset>
 
           
-	  <p style="text-align:center;"">
+	  <p style="text-align:center;">
 	    <button id="wpgmappity_marker_point_submit" class="button">Mark Point</button>
 	  </p>
          
@@ -587,7 +584,9 @@ if ( ($_GET['modify'] == 'edit') && (isset($markers)) ) {
 ?>
 <script type="text/javascript">
 
-var wpgmappity_marker_flag = true;
+function wpgmappity_marker_flag() {
+  return true;
+}
 
 function wpgmappity_import_markers() {
   return [
@@ -600,7 +599,9 @@ function wpgmappity_import_markers() {
 else {
  ?>
 <script type="text/javascript">
-var wpgmappity_marker_flag = false;
+function wpgmappity_marker_flag() {
+  return false;
+}
 </script>
 <?php } ?>
 
@@ -610,6 +611,7 @@ var wpgmappity_marker_flag = false;
 <script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-controls-street.js' ) ?>"></script>
 <script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-markers.js' ) ?>"></script>
 <script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-promote.js' ) ?>"></script>
+<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-jquery-fix.js' ) ?>"></script>
 <script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe.js' ) ?>"></script>
 
 <?php } ?>
@@ -669,7 +671,7 @@ function wpgmappity_marker_json_object($marker) {
   'marker_long' : '".$marker['marker_long']."',
   'marker_text' : ".$text.",
   'marker_url' : '".$marker['marker_url']."',
-  'marker_image' : '".$marker['marker_image']."',
+  'marker_image' : '".$marker['marker_image']."'
   }";
   return $content;
 }

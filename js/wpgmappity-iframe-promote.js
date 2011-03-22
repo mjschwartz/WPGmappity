@@ -10,7 +10,7 @@ function wpgmappity_promotion_callback(map, data) {
        */
       if ( jQuery("#wpgmappity_promote").is(':checked') )
       {
-	data.promote = true;
+	data.promote = '1';
 	var text = '<a href="http://www.wordpresspluginfu.com/wpgmappity/" target="_blank">';
 	text += 'Google Maps for WordPress by WPGmappity</a>';
 	jQuery("#wpgmappity_promote_text").html(text);
@@ -20,7 +20,7 @@ function wpgmappity_promotion_callback(map, data) {
        */
       else
       {
-        data.promote = false;
+        data.promote = '0';
 	jQuery("#wpgmappity_promote_text").html('');
       }
   };

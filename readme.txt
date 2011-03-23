@@ -13,6 +13,18 @@ Google Maps made Simple by WP-G-Mappity
 
 WPGMappity allows you to easily insert Google Maps into your posts.  No XML or JavaScript needed, building a Google Map is done completely in a WYSIWYG form inside your blog.  
 
+Versions 0.5 and above use version 3 of the Google Maps API.  For you this means:
+
+* No API key needed
+* New features
+* Fast downloads: visitors to your blog only download one extra file from Google - nothing from you.
+
+Features include:
+* Markers and custom icons
+* Routing
+* Map Controls
+* Completely customizable size and alignment
+
 Project Home, full instructions, and help: [http://www.wordpresspluginfu.com/wpgmappity/](http://www.wordpresspluginfu.com/wpgmappity/)
 
 
@@ -50,6 +62,9 @@ Now using version 3 of the Google Maps API.  This means all the goodies of v3 co
 
 Custom marker images.  The UI is pretty basic at this point:  When creating a marker you can specify a URL that a marker icon can be loaded from.
 
+Routing available.
+
+Bugbusting.
 
 
 = 0.4.4 =

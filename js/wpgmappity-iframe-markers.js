@@ -44,14 +44,11 @@ function wpgmappity_marker_event_callback(data, map, marker, marker_id) {
 
 function wpgamppity_rebuild_marker(data, map, marker, marker_id) {
 
-  //alert(data.markers[marker_id].marker_object);
   try {
     var mapobject = data.markers[parseInt(marker_id,10)].marker_object;
     mapobject.setMap(null);
     }
   catch(err) {
-    alert(mapobject.map)
-    //alert(out);
   }
   var newMarker = new google.maps.Marker(
     {

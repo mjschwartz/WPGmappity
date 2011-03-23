@@ -68,16 +68,16 @@ function wpgmappity_conf() {
 	<p>WPGMappity stores information about its maps in your blog's database.  Depending on the setting below, if the plugin is uninstalled that information can either be deleted permenantly, or retained in case you reinstall this plugin.</p>
 	<p>If you are sure that you will never use the plugin again, or if you are sure you no longer need the maps you have created its probably best to select "no" to clean up the clutter.  If you want to retain the information leave "yes" selected.</p>
 	<p><strong>Save map information in your database if WPGMMappity is uninstalled:</strong><br />
-	<label for="wpgmappity-save-tables-yes">Yes:</label> <input id="wpgmappity-save-tables-yes" name="wpgmappity-save-tables" type="radio" value="1" 
+	 <input id="wpgmappity-save-tables-yes" name="wpgmappity-save-tables" type="radio" value="1" 
 	<?php if ($settings['save_tables'] == '1') {
 		echo ' checked="checked"';
 		}
-		?>/><br />
-	<label for="wpgmappity-save-tables-no">No:</label> &nbsp;<input id="wpgmappity-save-tables-no" name="wpgmappity-save-tables" type="radio" value="0" 
+		?>/> <label for="wpgmappity-save-tables-yes">Yes, save my information just in case.</label><br />
+	 <input id="wpgmappity-save-tables-no" name="wpgmappity-save-tables" type="radio" value="0" 
 	<?php if ($settings['save_tables'] == '0') {
 		echo ' checked="checked"';
 		}
-		?>/></p>
+		?>/> <label for="wpgmappity-save-tables-no">No, delete my maps premanently when the plugin is uninstalled.</label></p>
 	
 	
 	<p class="submit"><input type="submit" name="submit-tables" value="Update Table Settings" /></p>

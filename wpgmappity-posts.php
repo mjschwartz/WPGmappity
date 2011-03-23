@@ -9,7 +9,7 @@ function wpgmappity_load_theme_scripts() {
 }
 
 add_action( 'wp_print_scripts', 'wpgmappity_theme_public_scripts' );
-add_action( 'admin_enqueue_scripts', 'wpgmappity_theme_scripts' );
+add_action( 'admin_enqueue_scripts', 'wpgmappity_load_theme_scripts' );
 
 
 
@@ -102,8 +102,14 @@ function wpgmappity_shortcode_mapjs($map) {
   $content .= "jQuery(document).ready(function() {\n";
   $content .= '  wpgmappity_maps_loaded'.$map['id'].'();'."\n";
   $content .= "});\n";
-  */
+  
   $content .= 'wpgmappity_maps_loaded'.$map['id'].'();'."\n";
+
+  */
+  $content .= "jQuery(window).load(function() {\n";
+  $content .= '  wpgmappity_maps_loaded'.$map['id'].'();'."\n";
+  $content .=  "});\n";
+
   $content .= '</script>';
 
   return $content;
@@ -353,15 +359,16 @@ function wpgmappity_shorcode_route($route, $map_name) {
   }
 
   else {
-    $content = "var service = new google.maps.DirectionsService()\n";
-    $content .= "var display = new google.maps.DirectionsRenderer()\n";
+    $content = "var service = new google.maps.DirectionsService();\n";
+    $content .= "var display = new google.maps.DirectionsRenderer();\n";
+    $content .= "var x;\n";
     $content .= "var terms = ".json_encode($route['points']).";\n";
     $content .= "display.setMap($map_name);
 
+      var waypoints = [];
       if (terms.length > 2 ) {
 	var points = terms.slice(1, -1);
-	var waypoints = [];
-	for (var x in points) {
+	for (x in points) {
 	  var y = {
 	    'location' : points[x],
 	    'stopover' : true
@@ -370,7 +377,7 @@ function wpgmappity_shorcode_route($route, $map_name) {
 	}
       }
       else {
-	var waypoints = [];
+	waypoints = [];
       }
       var origin = terms.splice(0,1).join('');
       var destination = terms.splice(-1,1).join('');

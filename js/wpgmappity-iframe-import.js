@@ -181,5 +181,8 @@ function wpgmappity_set_up_map(map_id, map, data) {
   if (wpgmappity_marker_flag() == true) {
     wpgmappity_import_build_markers(map, data);
   }
+  if (typeof imported_map.route != 'undefined') {
   wpgmappity_import_route(map,data,imported_map);
+
+  }
 }

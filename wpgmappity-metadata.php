@@ -17,7 +17,6 @@ function wpgmappity_insert_meta_data($map) {
   }
   // JSON.stringify leaves \'s - remove them for json_decode
   $map = json_decode(stripslashes($map), true);
-  //die(var_dump($map));
   $table = $wpdb->prefix . "wpgmappity_maps";
   $query = $wpdb->prepare( "
     INSERT INTO $table
@@ -93,7 +92,7 @@ function wpgmappity_update_meta_data($map, $map_id) {
       ( map_id, marker_lat, marker_long, marker_text, marker_url, marker_image )
       VALUES ( %s, %s, %s, %s, %s, %s )",
       $map_id, $marker['lat'], $marker['long'],
-	     $marker['marker_text'], $marker['marker_url'], $marker['image'] );
+	     $marker['marker_text'], '', $marker['image'] );
     $wpdb->query($query);
   }
   return $map_id; 

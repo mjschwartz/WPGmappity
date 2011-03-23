@@ -288,6 +288,7 @@ else { ?>
 	    <button id="wpgmappity_marker_image_preview" class="button">Preview</button>
 	    -->
 	  </p>
+	  <p>Need help with custom icon images?  <a href="http://www.wordpresspluginfu.com/wpgmappity/wpgmappity-custom-marker-icons/" target="_blank">Visit the WPGMappity icon help.</a></p>
 	  </fieldset>
 
           
@@ -333,6 +334,7 @@ else { ?>
     </th>
     <td class="wpgmappity_sample_choice">
 	<p>Add a route to your map.  Enter at least two addresses below to trace the route. </p>
+	  <p style="text-align:center;"">Need help with routes?  <a href="http://www.wordpresspluginfu.com/wpgmappity/wpgmappity-routes/" target="_blank">Visit the WPGMappity routes help.</a></p>
       <div class="wpgmappity_size_choice" style="width:75%;">
 	<p style="font-size:80;text-align:center;color:#a60000" id="wpgmappity-route-flash"></p>
 	    <ul id="wpgmappity-destinationList">
@@ -616,7 +618,9 @@ function wpgmappity_import_saved_map() {
     'version' : '<?php echo $map_to_edit['version']; ?>',
     'promote' : '<?php echo $map_to_edit['promote']; ?>',
     'controls' : <?php echo json_encode(unserialize(base64_decode($map_to_edit['map_controls']))); ?>,
+    <?php if (isset($map_to_edit['route'])) { ?>
     'route' : <?php echo json_encode(unserialize(base64_decode($map_to_edit['route']))); ?>,
+    <?php } ?>
     'map_address' : '<?php echo $map_to_edit['map_address']; ?>'
   }
 }

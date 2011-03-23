@@ -200,7 +200,6 @@ function wpgmappity_set_center(map,data) {
 
 function wpgmappity_geocode_response(map, data, type) {
   return function(response, status) {
-    //console.log(response)
     if (status === 'OK') {
       // multiple options
       if (response.length > 1) {
@@ -283,7 +282,7 @@ function wpgmappity_set_center_point_event(map, data) {
 function wpgmappity_set_add_marker_event(map, data) {
   jQuery("#wpgamppity_add_marker_go").click(function() {
     tb_show('Add a Marker',
-	    "#TB_inline?height=350&width=475&inlineId=wpgmappity_add_marker_dialog",
+	    "#TB_inline?height=450&width=475&inlineId=wpgmappity_add_marker_dialog",
 	    null);
     return false;
   });

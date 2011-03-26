@@ -3,7 +3,7 @@ Contributors: Matthew Schwartz
 Tags: google maps, maps, google, mapping
 Requires at least: 3.0
 Tested up to: 3.1
-Stable tag: 0.5
+Stable tag: 0.5.1
 
 Point, Click, Map. Build and insert Google Maps just as easily as you insert images.  All WYSIWYG: no JavaScript, no XML, no coding at all.
 
@@ -20,6 +20,7 @@ Versions 0.5 and above use version 3 of the Google Maps API.  For you this means
 * Fast downloads: visitors to your blog only download one extra file from Google - nothing from you.
 
 Features include:
+
 * Markers and custom icons
 * Routing
 * Map Controls
@@ -48,6 +49,25 @@ More Installation Info: [http://www.wordpresspluginfu.com/wpgmappity/wpgmappity-
 1. WPGMappity button added to the Edit Post screen.
 
 == Changelog ==
+
+=0.5.1=
+
+Major release.
+
+Now using version 3 of the Google Maps API.  This means all the goodies of v3 come that with it:
+
+* API key no longer needed.
+* Large speed increase.
+* Significantly smaller code footprint.
+* WPGMappity has been updated to reflect new map types and new map control types.
+
+Custom marker images.  The UI is pretty basic at this point:  When creating a marker you can specify a URL that a marker icon can be loaded from.
+
+Routing available.
+
+Bugbusting.
+
+Bug fix: edit code to try an protect old maps from damage with non-direct install.
 
 =0.5=
 

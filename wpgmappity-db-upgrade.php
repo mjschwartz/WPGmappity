@@ -46,5 +46,3 @@ function wpgmappity_upgrade_db_from_3() {
     dbDelta($marker_sql);
   }
 }
-
-?>

@@ -397,4 +397,3 @@ function wpgmappity_shorcode_route($route, $map_name) {
   }
 
 }
-?>

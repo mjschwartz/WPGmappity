@@ -401,8 +401,8 @@ function wgmappity_set_map_submission_event(map, data) {
       data.route.display = null;
       data.route.service = null;
       data.listeners = null;
-
-    jQuery("#wpgmappity-submit-info").val(JSON.stringify(data));
+      var complete_data = JSON.stringify(data);
+    jQuery("#wpgmappity-submit-info").val(complete_data);
 
     //return false;
   });

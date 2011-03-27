@@ -3,7 +3,7 @@ Contributors: Matthew Schwartz
 Tags: google maps, maps, google, mapping
 Requires at least: 3.0
 Tested up to: 3.1
-Stable tag: 0.5.2
+Stable tag: 0.5.3
 
 Point, Click, Map. Build and insert Google Maps just as easily as you insert images.  All WYSIWYG: no JavaScript, no XML, no coding at all.
 
@@ -49,6 +49,10 @@ More Installation Info: [http://www.wordpresspluginfu.com/wpgmappity/wpgmappity-
 1. WPGMappity button added to the Edit Post screen.
 
 == Changelog ==
+=0.5.3=
+
+Bug Fix: Added versioning to the JS calls to prevent cache from previous versions.
+
 
 =0.5.2=
 

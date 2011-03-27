@@ -15,6 +15,7 @@ function wpgmappity_insert_meta_data($map) {
         return $json->decode($content);
     }
   }
+   wpgmappity_db_version();
   // JSON.stringify leaves \'s - remove them for json_decode
   $map = json_decode(stripslashes($map), true);
   $table = $wpdb->prefix . "wpgmappity_maps";

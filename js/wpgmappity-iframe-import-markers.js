@@ -4,7 +4,7 @@ function wpgmappity_import_markers_response(map, data, marker_num) {
     if (status === 'OK') {
       var markers = wpgmappity_import_markers();
       var marker_data = markers[marker_num];
-      var marker, image;
+      var marker;
       if (marker_data.marker_image === 'default') {
 	marker = new google.maps.Marker(
 	  {
@@ -82,8 +82,7 @@ function wpgmappity_import_build_markers(map, data) {
       latLng : point
       };
 
-    var geocoder = new google.maps.Geocoder;
-    var imported_marker = markers[x];
+    var geocoder = new google.maps.Geocoder();
     //console.log(markers[x])
     geocoder.geocode(geoCodeRequest, wpgmappity_import_markers_response(map, data, x));
 

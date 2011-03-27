@@ -625,7 +625,7 @@ function wpgmappity_import_saved_map() {
   }
 }
 </script>
-<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-import.js' ) ?>"></script>
+<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-import.js?version=0.5.3' ) ?>"></script>
 <?php }
 $markers = wpgmappity_fetch_markers_for_map($map_id);
 if ( ($_GET['modify'] == 'edit') && (isset($markers)) ) {
@@ -643,7 +643,7 @@ function wpgmappity_import_markers() {
   ]
 }
 </script>
-<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-import-markers.js' ) ?>"></script>
+<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-import-markers.js?version=0.5.3' ) ?>"></script>
   <?php }
 else {
  ?>
@@ -654,14 +654,14 @@ function wpgmappity_marker_flag() {
 </script>
 <?php } ?>
 
-<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-controls-zoom.js' ) ?>"></script>
-<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-controls-type.js' ) ?>"></script>
-<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-controls-scale.js' ) ?>"></script>
-<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-controls-street.js' ) ?>"></script>
-<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-markers.js' ) ?>"></script>
-<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-promote.js' ) ?>"></script>
-<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-routes.js' ) ?>"></script>
-<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe.js' ) ?>"></script>
+<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-controls-zoom.js?version=0.5.3' ) ?>"></script>
+<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-controls-type.js?version=0.5.3' ) ?>"></script>
+<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-controls-scale.js?version=0.5.3' ) ?>"></script>
+<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-controls-street.js?version=0.5.3' ) ?>"></script>
+<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-markers.js?version=0.5.3' ) ?>"></script>
+<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-promote.js?version=0.5.3' ) ?>"></script>
+<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-routes.js?version=0.5.3' ) ?>"></script>
+<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe.js?version=0.5.3' ) ?>"></script>
 
 <?php } ?>
 

@@ -3,7 +3,7 @@
 Plugin Name: Google Maps made Simple
 Plugin URI: http://www.wordpresspluginfu.com/wpgmappity/
 Description: Point, Click, Google Maps.  Easily build a Google Map for your posts with a WYSIWYG form.
-Version: 0.5.3
+Version: 0.5.4
 Author: Matthew Schwartz
 Author URI: http://schwartzlink.net
 */
@@ -114,6 +114,7 @@ function wpgmappity_init_table() {
       dbDelta($map_sql);
       dbDelta($marker_sql);
  
+      
       add_option("wpgmappity_db_version", $wpgmappity_db_version);
    }
 }

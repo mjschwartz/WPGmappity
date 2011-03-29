@@ -126,7 +126,10 @@ function wpgmappity_shortcode_markers_js($map_id) {
     $content .= "var point$map_id_$i = new google.maps.LatLng(";
     $content .= $marker['marker_lat'].",".$marker['marker_long'].");\n"; 
     $content .= "var $marker_name = new google.maps.Marker({\n";
-    if ( isset($marker['marker_image']) && ($marker['marker_image'] != 'default') ) {
+    if ( isset($marker['marker_image']) && 
+      ($marker['marker_image'] != 'default') &&
+      ($marker['marker_image'] != '' ) ) {
+      
       $content .= "  icon : '".$marker['marker_image']."',\n";
     }
     $content .= "  position : point$map_id_$i,\n";
@@ -354,7 +357,7 @@ function wpgmappity_shortcode_control_position($position) {
 
 function wpgmappity_shorcode_route($route, $map_name) {
   // no route
-  if ($route['active'] == '0') {
+  if ( (!isset($route['active'])) || ($route['active'] == '0') ) {
     return '';
   }
 

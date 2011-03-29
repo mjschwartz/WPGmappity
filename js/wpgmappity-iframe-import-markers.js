@@ -5,7 +5,8 @@ function wpgmappity_import_markers_response(map, data, marker_num) {
       var markers = wpgmappity_import_markers();
       var marker_data = markers[marker_num];
       var marker;
-      if (marker_data.marker_image === 'default') {
+      if ( (marker_data.marker_image === 'default') || (marker_data.marker_image === '') ) {
+	marker_data.marker_image = 'default';
 	marker = new google.maps.Marker(
 	  {
 	    position: response[0].geometry.location,
@@ -14,7 +15,6 @@ function wpgmappity_import_markers_response(map, data, marker_num) {
 	);
       }
       if ( (marker_data.marker_image !== '') && (marker_data.marker_image !== 'default') ) {
-
 	marker = new google.maps.Marker(
 	  {
 	    position: response[0].geometry.location,
@@ -44,17 +44,16 @@ function wpgmappity_import_markers_response(map, data, marker_num) {
 
 
       if (marker_data.marker_text !== '') {
-
 	google.maps.event.addListener(marker,
 	'click',
 	function() {
 	  var html = "";
-	  if (marker_data.marker_url !== undefined)
+	  if ( (marker_data.marker_url !== undefined) && (marker_data.marker_url !== '') )
 	  {
 	    html += "<a href='" + marker_data.marker_url + "'>";
 	  }
 	  html += marker_data.marker_text.replace(/\n/g,'<br />');
-	  if (marker_data.marker_url !== undefined)
+	  if ( (marker_data.marker_url !== undefined) && (marker_data.marker_url !== '') )
 	  {
 	    html += "</a>";
 	  }

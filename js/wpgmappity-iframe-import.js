@@ -173,7 +173,9 @@ function wpgmappity_set_up_map(map_id, map, data) {
   var imported_map = wpgmappity_import_saved_map();
   wpgmappity_import_zoom(map, data, imported_map);
   wpgmappity_import_center(map, data, imported_map);
-  wpgmappity_import_controls(map, data, imported_map);
+  if ( (typeof imported_map.controls !== 'undefined') && (imported_map.controls !== false) ) {
+    wpgmappity_import_controls(map, data, imported_map);
+    }
   wpgmappity_import_type(map, data, imported_map);
   wpgmappity_import_alignment(data, imported_map);
   wpgmappity_import_size(map, data, imported_map);
@@ -181,7 +183,8 @@ function wpgmappity_set_up_map(map_id, map, data) {
   if (wpgmappity_marker_flag() == true) {
     wpgmappity_import_build_markers(map, data);
   }
-  if ( (typeof imported_map.route !== 'undefined') && (imported_map.route.active !== '0') ) {
+  if ( (typeof imported_map.route !== 'undefined') &&
+    (imported_map.route.active !== '0') && (imported_map.route !== false) )  {
     wpgmappity_import_route(map,data,imported_map);
 
   }

@@ -3,7 +3,7 @@ Contributors: Matthew Schwartz
 Tags: google maps, maps, google, mapping
 Requires at least: 3.0
 Tested up to: 3.1
-Stable tag: 0.5.4
+Stable tag: 0.5.5
 
 Point, Click, Map. Build and insert Google Maps just as easily as you insert images.  All WYSIWYG: no JavaScript, no XML, no coding at all.
 

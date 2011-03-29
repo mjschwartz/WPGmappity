@@ -654,14 +654,14 @@ function wpgmappity_marker_flag() {
 </script>
 <?php } ?>
 
-<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-controls-zoom.js?version=0.5.3' ) ?>"></script>
-<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-controls-type.js?version=0.5.3' ) ?>"></script>
-<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-controls-scale.js?version=0.5.3' ) ?>"></script>
-<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-controls-street.js?version=0.5.3' ) ?>"></script>
-<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-markers.js?version=0.5.3' ) ?>"></script>
-<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-promote.js?version=0.5.3' ) ?>"></script>
-<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-routes.js?version=0.5.3' ) ?>"></script>
-<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe.js?version=0.5.3' ) ?>"></script>
+<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-controls-zoom.js?version=0.5.5' ) ?>"></script>
+<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-controls-type.js?version=0.5.5' ) ?>"></script>
+<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-controls-scale.js?version=0.5.5' ) ?>"></script>
+<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-controls-street.js?version=0.5.5' ) ?>"></script>
+<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-markers.js?version=0.5.5' ) ?>"></script>
+<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-promote.js?version=0.5.5' ) ?>"></script>
+<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe-routes.js?version=0.5.5' ) ?>"></script>
+<script type="text/javascript" src="<?php echo wpgmappity_plugin_url( 'js/wpgmappity-iframe.js?version=0.5.5' ) ?>"></script>
 
 <?php } ?>
 
@@ -708,6 +708,7 @@ function wpgmappity_marker_json($markers) {
 }
 
 function wpgmappity_marker_json_object($marker) {
+  /*
   $marker_text = explode("\n", $marker['marker_text']);
   $text = '[';
   foreach ($marker_text as $bit) {
@@ -723,6 +724,11 @@ function wpgmappity_marker_json_object($marker) {
   'marker_image' : '".$marker['marker_image']."'
   }";
   return $content;
+  */
+  unset($marker['id']);
+  unset($marker['map_id']);
+  unset($marker['active']);
+  return json_encode($marker);
 }
 
 ?>

@@ -3,7 +3,7 @@ Contributors: Matthew Schwartz
 Tags: google maps, maps, google, mapping
 Requires at least: 3.0
 Tested up to: 3.1
-Stable tag: 0.5.5
+Stable tag: 0.5.6
 
 Point, Click, Map. Build and insert Google Maps just as easily as you insert images.  All WYSIWYG: no JavaScript, no XML, no coding at all.
 
@@ -50,6 +50,13 @@ More Installation Info: [http://www.wordpresspluginfu.com/wpgmappity/wpgmappity-
 
 == Changelog ==
 
+=0.5.6=
+
+Bug fixes:
+
+Changed the "edit marker" screen to load markers with an asynchronous delay.  Loading more than 5 markers too quicly was hitting the Google Maps API geocaching rate limit.  Google should be happier about this.
+
+"Unwedged" broken databases - People that upgraded with the first 0.5 versions find their DBs in an usable format.
 
 =0.5.4=
 

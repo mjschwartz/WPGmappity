@@ -31,8 +31,7 @@ function wpgmappity_upgrade_db_from_3() {
          ADD COLUMN promote VARCHAR(255) NOT NULL,
          ADD COLUMN version VARCHAR(255) NOT NULL,
          ADD COLUMN route VARCHAR(2000) NOT NULL,
-         MODIFY map_controls varchar(1000)
-	;";
+         MODIFY map_controls varchar(1000);";
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
     //dbDelta($map_sql);
     $wpdb->query($map_sql);

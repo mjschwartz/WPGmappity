@@ -3,7 +3,7 @@
 Plugin Name: Google Maps made Simple
 Plugin URI: http://www.wordpresspluginfu.com/wpgmappity/
 Description: Point, Click, Google Maps.  Easily build a Google Map for your posts with a WYSIWYG form.
-Version: 0.5.5
+Version: 0.5.6
 Author: Matthew Schwartz
 Author URI: http://schwartzlink.net
 */
@@ -129,6 +129,7 @@ function wgmappity_settings_destroy() {
   $settings = get_option('wpgmappity_options');
   if ($settings['save_tables'] == '0') {
     delete_option('wpgmappity_options');
+    delete_option('wpgmappity_db_version');
     wpgmappity_delete_table();
   }
 }
@@ -138,8 +139,23 @@ register_deactivation_hook( __FILE__, 'wgmappity_settings_destroy' );
 // DB Versioning
 add_action('admin_init', 'wpgmappity_db_version');
 function wpgmappity_db_version() {
+
   $db_version = get_option('wpgmappity_db_version');
   $current_db_version = WPGMAPPITY_PLUGIN_CURRENT_DB;
+  $is_wedged = get_option('wpgmappity_db_wedge');
+
+  // Fix the DB's that have gotten stuck with the bad version
+  // temp hack until the next db upgrade
+  if ( (isset($db_version)) && ($db_version == $current_db_version) && ($is_wedged === false) ) 
+    {
+      global $wpdb;
+      $marker_table_name = $wpdb->prefix . "wpgmappity_markers";
+      if($wpdb->get_var("show columns from $marker_table_name like 'marker_image'") == false) {
+	require_once wpgmappity_plugin_path() . 'wpgmappity-db-upgrade.php';
+	wpgmappity_upgrade_db_from_3();
+      }
+      add_option("wpgmappity_db_wedge", '1');
+    }
   
   if ( (isset($db_version)) && ($db_version != $current_db_version) ) {
     require_once wpgmappity_plugin_path() . 'wpgmappity-db-upgrade.php';

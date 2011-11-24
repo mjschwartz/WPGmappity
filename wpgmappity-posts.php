@@ -74,7 +74,11 @@ function wpgmappity_shortcode_container_div($map) {
 
 
 function wpgmappity_shortcode_mapjs($map) {
-  $content = '<script type="text/javascript">'."\n";
+  $content = "\n".'<script type="text/javascript">'."\n";
+
+  // provide globally accessible object
+  $content = $content .= 'var wpgmappitymap'.$map['id'].';'."\n";;
+
   $content .= 'function wpgmappity_maps_loaded'.$map['id'].'() {'."\n";
   // center point
   $content .= "var latlng = new google.maps.LatLng(".$map['center_lat'].",".$map['center_long'].");\n";
@@ -86,7 +90,7 @@ function wpgmappity_shortcode_mapjs($map) {
   $content .= "  zoom : ".$map['map_zoom']."\n";
   $content .= "};\n";
 
-  $content .= 'var wpgmappitymap'.$map['id'].' = ';
+  $content .= 'wpgmappitymap'.$map['id'].' = ';
   $content .= "new google.maps.Map(document.getElementById(";
   $content .= "'wpgmappity-map-".$map['id']."'), options);\n";
  

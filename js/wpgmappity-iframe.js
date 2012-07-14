@@ -60,7 +60,7 @@ function wpgmappity_build_data_container() {
   };
 
   var data = {
-    'version' : '0.5',
+    'version' : '0.6',
     'map_length': 450,
     'map_height': 300,
     'map_zoom' : 3,
@@ -69,6 +69,7 @@ function wpgmappity_build_data_container() {
     'markers' : [],
     'map_type' : 'normal',
     'alignment' : 'none',
+    'scroll' : 'scroll',
     'controls' : empty_controls_object,
     'map_address' : '',
     'slider_object' : '',
@@ -362,8 +363,10 @@ function wpgmappity_set_alignment_event(map, data) {
   jQuery("input[name='wpgmappity_float']").change(function(){
     data.alignment = jQuery(this).attr("value");
   });
+  jQuery("input[name='wpgmappity_scroll']").change(function(){
+    data.scroll = jQuery(this).attr("value");
+  });
 }
-
 
 
 function wpgmappity_set_modal_events(map, data) {

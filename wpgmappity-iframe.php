@@ -1,6 +1,5 @@
 <?php 
 function wpgmappity_iframe() {
-  $post_id = esc_attr($_REQUEST['post_id']);
   $map_id =  esc_attr($_REQUEST['map_id']);
   $wgmappity_style_sheet = wpgmappity_plugin_url( 'styles/wpgmappity-iframe.css' );
 
@@ -51,8 +50,8 @@ do_action('admin_head');
 ?>
 <div id="media-upload-header">
 <ul id="sidemenu">
-<li><a href="media-upload.php?post_id=59&amp;type=gmappity&amp;TB_iframe=true&amp;width=640&amp;height=360">Build a Map</a></li>
-<li><a class="current" href="media-upload.php?post_id=59&amp;type=gmappity&amp;modify=select&amp;TB_iframe=true&amp;width=640&amp;height=360">Map Library</a></li>
+<li><a href="media-upload.php?type=gmappity&amp;TB_iframe=true&amp;width=640&amp;height=360">Build a Map</a></li>
+<li><a class="current" href="media-upload.php?type=gmappity&amp;modify=select&amp;TB_iframe=true&amp;width=640&amp;height=360">Map Library</a></li>
 </ul>
 </div>
 
@@ -66,7 +65,7 @@ do_action('admin_head');
 
   $map_list = wpgmappity_fetch_all_maps();
   $content = '';
-  $map_upload_iframe_src = "media-upload.php?post_id=$post_id&amp;type=gmappity&amp;TB_iframe=true";
+  $map_upload_iframe_src = "media-upload.php?type=gmappity&amp;TB_iframe=true";
   foreach ($map_list as $map) {
 
     $content .= '<div class="map-list-item">';
@@ -100,12 +99,12 @@ else { ?>
 
 <div id="media-upload-header">
 <ul id="sidemenu">
-<li><a class="current" href="media-upload.php?post_id=59&amp;type=gmappity&amp;TB_iframe=true&amp;width=640&amp;height=360">Build a Map</a></li>
-<li><a href="media-upload.php?post_id=59&amp;type=gmappity&amp;modify=select&amp;TB_iframe=true&amp;width=640&amp;height=360">Map Library</a></li>
+<li><a class="current" href="media-upload.php?type=gmappity&amp;TB_iframe=true&amp;width=640&amp;height=360">Build a Map</a></li>
+<li><a href="media-upload.php?type=gmappity&amp;modify=select&amp;TB_iframe=true&amp;width=640&amp;height=360">Map Library</a></li>
 </ul>
 </div>
 
-<form id="wpgmappity-create" action="media-upload.php?type=wpgmappity&amp;tab=type&amp;post_id=<?php echo $post_id ?>" method="post" autocomplete="off">
+<form id="wpgmappity-create" action="media-upload.php?type=wpgmappity&amp;tab=type" method="post" autocomplete="off">
 <br />
 <h3 class="media-title">Add a Google Map to your post</h3>
 <div id="media-upload-notice"></div>
@@ -334,7 +333,7 @@ else { ?>
     </th>
     <td class="wpgmappity_sample_choice">
 	<p>Add a route to your map.  Enter at least two addresses below to trace the route. </p>
-	  <p style="text-align:center;"">Need help with routes?  <a href="http://www.wordpresspluginfu.com/wpgmappity/wpgmappity-routes/" target="_blank">Visit the WPGMappity routes help.</a></p>
+	  <p style="text-align:center;">Need help with routes?  <a href="http://www.wordpresspluginfu.com/wpgmappity/wpgmappity-routes/" target="_blank">Visit the WPGMappity routes help.</a></p>
       <div class="wpgmappity_size_choice" style="width:75%;">
 	<p style="font-size:80;text-align:center;color:#a60000" id="wpgmappity-route-flash"></p>
 	    <ul id="wpgmappity-destinationList">
@@ -555,6 +554,28 @@ else { ?>
       </div>
     </td>
   </tr>
+  
+  <!-- scroll -->
+  <tr class="wpgmappity-iframe-dimension">
+    <th valign="top" class="label" scope="row">
+      <label for="wpgmappity_float">
+        <span class="wpgmappity_selector_size">
+          Scroll Zoom
+        </span>
+      </label>
+    </th>
+    <td class="wpgmappity_sample_choice">
+      <div class="wpgmappity_size_choice" style="width:35%;">
+        <input type="radio" value="scroll" id="wpgmappity_scroll_none" name="wpgmappity_scroll" checked="checked" />
+        <label for="wpgmappity_scroll_none">Allow Scroll To Zoom</label>
+      </div>
+      <div class="wpgmappity_size_choice" style="width:35%;">
+        <input type="radio" value="no_scroll" id="wpgmappity_scroll_left" name="wpgmappity_scroll" />
+        <label for="wpgmappity_scroll_left">Prevent Scroll To Zoom</label>
+      </div>
+    </td>
+  </tr>
+
   <!-- promote -->
   <tr class="wpgmappity-iframe-dimension">
     <th valign="top" class="label" scope="row">
@@ -617,6 +638,7 @@ function wpgmappity_import_saved_map() {
     'alignment' : '<?php echo $map_to_edit['alignment']; ?>',
     'version' : '<?php echo $map_to_edit['version']; ?>',
     'promote' : '<?php echo $map_to_edit['promote']; ?>',
+    'scroll' : '<?php echo $map_to_edit['scroll']; ?>',
     'controls' : <?php echo json_encode(unserialize(base64_decode($map_to_edit['map_controls']))); ?>,
     <?php if (isset($map_to_edit['route'])) { ?>
     'route' : <?php echo json_encode(unserialize(base64_decode($map_to_edit['route']))); ?>,

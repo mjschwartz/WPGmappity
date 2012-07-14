@@ -28,7 +28,7 @@ function wpgmappity_upload() {
     $map_number = wpgmappity_update_meta_data($map_meta_data, $map_id);
   }
   else {
-    $map_number =  wpgmappity_insert_meta_data($map_meta_data);
+    $map_number = wpgmappity_insert_meta_data($map_meta_data);
   }
   $html = '<p>[wpgmappity id="'.$map_number.'"]</p>';
   return media_send_to_editor($html);
@@ -84,7 +84,7 @@ function wpgmappity_conf() {
 	</form>
 	
 	
-	<p>Visit the project home for user help or more infomration: <a href="http://www.wordpresspluginfu.com/wpgmappity/">http://www.wordpresspluginfu.com/wpgmappity/</a>.</p>
+	<p>Visit the project home for user help or more infomration: <a href="http://matthewschwartz.me/wordpress/wpgmappity/">http://matthewschwartz.me/wordpress/wpgmappity/</a>.</p>
 <p>Is this plugin useful to you? Please take a second to <a href="http://wordpress.org/extend/plugins/wp-gmappity-easy-google-maps/">rate it on wordpress.org.</a></p>
 </div> <!-- narrow -->
 </div> <!-- wrap -->

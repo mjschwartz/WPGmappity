@@ -120,6 +120,20 @@ switch (imported_map.alignment) {
   jQuery('input:radio[name=wpgmappity_float]:eq(3)').attr('checked', 'checked');
   break;
   }
+console.log(imported_map)
+switch (imported_map.scroll) {
+  case '' :
+  data.scroll = 'scroll';
+  break;
+  case 'scroll' :
+  data.scroll = 'scroll';
+  break;
+  case 'no_scroll' :
+  data.scroll = 'no_scroll';
+  jQuery('#wpgmappity_scroll_none').removeAttr('checked');
+  jQuery('input:radio[name=wpgmappity_scroll]:eq(1)').attr('checked', 'checked');
+  break;
+  }
 }
 
 function wpgmappity_import_size(map, data, imported_map) {

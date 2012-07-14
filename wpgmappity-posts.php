@@ -65,7 +65,7 @@ function wpgmappity_shortcode_container_div($map) {
   $content .=  wpgmappity_shortcode_float($map);
   $content .= '</div>';
   if ($map['promote'] == true) {
-    $content .= '<p style="text-align: center; font-size: 70%; margin: 0pt;" id="wpgmappity_promote_text"><a target="_blank" href="http://www.wordpresspluginfu.com/wpgmappity/">Google Maps for WordPress by WPGmappity</a></p>';
+    $content .= '<p style="text-align: center; font-size: 70%; margin: 0pt;" id="wpgmappity_promote_text">Google Maps for WordPress by WPGmappity</p>';
   }
   $content .= '</div>';
 
@@ -81,6 +81,7 @@ function wpgmappity_shortcode_mapjs($map) {
   // inital options
   $content .= "var options = {\n";
   $content .= "  center : latlng,\n";
+  $content .= "  scrollwheel :  ".wpgmappity_shortcode_scroll($map).",\n";
   $content .= "  mapTypeId: google.maps.MapTypeId.".wpgmappity_shortcode_maptype($map).",\n";
   $content .= wpgmappity_shortcode_controls(unserialize(base64_decode($map['map_controls'])));
   $content .= "  zoom : ".$map['map_zoom']."\n";
@@ -170,6 +171,17 @@ function wpgmappity_retrieve_markers($map_id) {
   global $wpdb;
   $table = $wpdb->prefix . "wpgmappity_markers";
   return $wpdb->get_results("SELECT * FROM $table WHERE map_id = $map_id", ARRAY_A);
+}
+
+
+
+function wpgmappity_shortcode_scroll($map) {
+  if ($map['scroll'] == 'no_scroll') {
+    return "false";
+  }
+  else {
+    return "true";
+  }
 }
 
 function wpgmappity_shortcode_maptype($map) {

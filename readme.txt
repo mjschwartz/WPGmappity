@@ -1,9 +1,9 @@
 === Plugin Name ===
 Contributors: Matthew Schwartz
 Tags: google maps, maps, google, mapping
-Requires at least: 3.0
-Tested up to: 3.1
-Stable tag: 0.5.6
+Requires at least: 3.4
+Tested up to: 3.4.1
+Stable tag: 0.6
 
 Point, Click, Map. Build and insert Google Maps just as easily as you insert images.  All WYSIWYG: no JavaScript, no XML, no coding at all.
 
@@ -26,7 +26,7 @@ Features include:
 * Map Controls
 * Completely customizable size and alignment
 
-Project Home, full instructions, and help: [http://www.wordpresspluginfu.com/wpgmappity/](http://www.wordpresspluginfu.com/wpgmappity/)
+Project Home, full instructions, and help: [http://matthewschwartz.me/wordpress/wpgmappity/](http://matthewschwartz.me/wordpress/wpgmappity/)
 
 
 
@@ -41,7 +41,7 @@ Installation Instructions:
 * Activate the plugin on the plugin administration page.
 * Thats it!
 
-More Installation Info: [http://www.wordpresspluginfu.com/wpgmappity/wpgmappity-installation/](http://www.wordpresspluginfu.com/wpgmappity/wpgmappity-installation/)
+More Installation Info: [http://matthewschwartz.me/wordpress/wpgmappity/wpgmappity-installation/](http://matthewschwartz.me/wordpress/wpgmappity/wpgmappity-installation/)
 
 == Screenshots ==
 
@@ -49,6 +49,16 @@ More Installation Info: [http://www.wordpresspluginfu.com/wpgmappity/wpgmappity-
 1. WPGMappity button added to the Edit Post screen.
 
 == Changelog ==
+
+=0.6=
+
+Bug fixes:
+
+Allow library functionality to work with newer WordPress releases.
+
+New Features:
+
+Added a option to disable scrollwheel zooming.
 
 =0.5.6=
 

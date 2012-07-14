@@ -1,15 +1,15 @@
 <?php
 /*
 Plugin Name: Google Maps made Simple
-Plugin URI: http://www.wordpresspluginfu.com/wpgmappity/
+Plugin URI: http://matthewschwartz.me/wordpress/wpgmappity/
 Description: Point, Click, Google Maps.  Easily build a Google Map for your posts with a WYSIWYG form.
-Version: 0.5.6
+Version: 0.6
 Author: Matthew Schwartz
-Author URI: http://schwartzlink.net
+Author URI: http://matthewschwartz.me/
 */
 
 
-/*  Copyright 2011  Matthew Schwartz  (email : schwartz.matthew@schwartzlink.net)
+/*  Copyright 2012  Matthew Schwartz  (email : matt@matthewschwartz.me)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as 
@@ -25,7 +25,7 @@ Author URI: http://schwartzlink.net
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 if ( ! defined( 'WPGMAPPITY_PLUGIN_CURRENT_DB' ) )
-	define( 'WPGMAPPITY_PLUGIN_CURRENT_DB', '0.5' );
+	define( 'WPGMAPPITY_PLUGIN_CURRENT_DB', '0.6' );
 
 if ( ! defined( 'WPGMAPPITY_PLUGIN_BASENAME' ) )
 	define( 'WPGMAPPITY_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
@@ -90,6 +90,7 @@ function wpgmappity_init_table() {
           center_long VARCHAR(255) NOT NULL,
           map_type VARCHAR(255) NOT NULL,
           alignment VARCHAR(255) NOT NULL,
+          scroll VARCHAR(255) NOT NULL,
           map_address VARCHAR(1000) NOT NULL,
           map_controls VARCHAR(1000) NOT NULL,
           promote VARCHAR(255) NOT NULL,
@@ -161,13 +162,17 @@ function wpgmappity_db_version() {
     require_once wpgmappity_plugin_path() . 'wpgmappity-db-upgrade.php';
     switch ($db_version) {
       case '0.1':
-	wpgmappity_upgrade_db_from_1();
-	update_option("wpgmappity_db_version", $current_db_version);
-	break;
+      	wpgmappity_upgrade_db_from_1();
+      	update_option("wpgmappity_db_version", $current_db_version);
+      	break;
       case '0.3':
-	wpgmappity_upgrade_db_from_3();
-	update_option("wpgmappity_db_version", $current_db_version);
-	break;
+      	wpgmappity_upgrade_db_from_3();
+      	update_option("wpgmappity_db_version", $current_db_version);
+      	break;
+      case '0.5':
+        wpgmappity_upgrade_db_from_5();
+        update_option("wpgmappity_db_version", $current_db_version);
+        break;
     }
   }
 }

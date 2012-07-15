@@ -287,7 +287,7 @@ else { ?>
 	    <button id="wpgmappity_marker_image_preview" class="button">Preview</button>
 	    -->
 	  </p>
-	  <p>Need help with custom icon images?  <a href="http://www.wordpresspluginfu.com/wpgmappity/wpgmappity-custom-marker-icons/" target="_blank">Visit the WPGMappity icon help.</a></p>
+	  <p>Need help with custom icon images?  <a href="http://matthewschwartz.me/wordpress/wpgmappity/wpgmappity-custom-marker-icons/" target="_blank">Visit the WPGMappity icon help.</a></p>
 	  </fieldset>
 
           
@@ -333,7 +333,7 @@ else { ?>
     </th>
     <td class="wpgmappity_sample_choice">
 	<p>Add a route to your map.  Enter at least two addresses below to trace the route. </p>
-	  <p style="text-align:center;">Need help with routes?  <a href="http://www.wordpresspluginfu.com/wpgmappity/wpgmappity-routes/" target="_blank">Visit the WPGMappity routes help.</a></p>
+	  <p style="text-align:center;">Need help with routes?  <a href="http://matthewschwartz.me/wordpress/wpgmappity/wpgmappity-routes/" target="_blank">Visit the WPGMappity routes help.</a></p>
       <div class="wpgmappity_size_choice" style="width:75%;">
 	<p style="font-size:80;text-align:center;color:#a60000" id="wpgmappity-route-flash"></p>
 	    <ul id="wpgmappity-destinationList">
@@ -615,7 +615,7 @@ else { ?>
 
 <?php } ?>
 
-<p>Need help? <a href="http://www.wordpresspluginfu.com/wpgmappity/using-wpgmappity/" target="_blank">WP GMappity usage help</a></p>
+<p>Need help? <a href="http://matthewschwartz.me/wordpress/wpgmappity/using-wpgmappity/" target="_blank">WP GMappity usage help</a></p>
 <p>If you find WP GMappity useful, please take a second to <a href="http://wordpress.org/extend/plugins/wp-gmappity-easy-google-maps/" target="_blank">rate it on the Wordpress.org site</a>.</p>
 <textarea id="wpgmappity-submit-info" name="wpgmappity-submit-info" style="display:none;"></textarea>
 

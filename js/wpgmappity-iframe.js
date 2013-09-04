@@ -1,5 +1,4 @@
 
-
 function getUrlVars()
 {
   var vars = [], hash, i;
@@ -282,9 +281,12 @@ function wpgmappity_set_center_point_event(map, data) {
 
 function wpgmappity_set_add_marker_event(map, data) {
   jQuery("#wpgamppity_add_marker_go").click(function() {
+    /*
+    //tb_show has been modified by the Wordpress Core. This no longer functions properly.
     tb_show('Add a Marker',
 	    "#TB_inline?height=450&width=475&inlineId=wpgmappity_add_marker_dialog",
-	    null);
+	    null);*/
+    jQuery("#wpgmappity_add_marker_dialog").show(); //Dirty Fix
     return false;
   });
   jQuery("#wpgmappity_marker_point_submit").live('click',
